@@ -1,0 +1,6 @@
+<launch>
+	  <env name="GAZEBO_MODEL_PATH" value="$(find wheel_chair_model)/models:$(optenv GAZEBO_MODEL_PATH)"/>
+  <include file="$(find wheel_chair_model)/launch/empty_world.launch">
+  	<arg name="world_name" value="$(find wheel_chair_model)/worlds/Wheelchair.world"/>
+  </include>
+</launch>
