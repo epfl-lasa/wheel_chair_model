@@ -78,7 +78,7 @@
       <child>left_main_wheel</child>
       <parent>Mainbody</parent>
       <axis>
-        <xyz>0 1 0</xyz>
+        <xyz>0 0 1</xyz>
       </axis>
     </joint>
     <link name="right_main_wheel">
@@ -115,7 +115,7 @@
       <child>right_main_wheel</child>
       <parent>Mainbody</parent>
       <axis>
-        <xyz>0 1 0</xyz>
+        <xyz>0 0 -1</xyz>
       </axis>
     </joint>
 
@@ -192,7 +192,7 @@
       <child>left_front_wheel</child>
       <parent>left_front_pin</parent>
       <axis>
-        <xyz>0 1 0</xyz>
+        <xyz>0 0 1</xyz>
       </axis>
     </joint>
 
@@ -271,7 +271,7 @@
       <child>right_front_wheel</child>
       <parent>right_front_pin</parent>
       <axis>
-        <xyz>0 1 0</xyz>
+        <xyz>0 0 -1</xyz>
       </axis>
     </joint>
 
@@ -310,7 +310,7 @@
       <child>left_rear_wheel</child>
       <parent>left_rear_pin</parent>
       <axis>
-        <xyz>0 1 0</xyz>
+        <xyz>0 0 1</xyz>
       </axis>
     </joint>
 
@@ -348,7 +348,7 @@
       <child>right_rear_wheel</child>
       <parent>right_rear_pin</parent>
       <axis>
-        <xyz>0 1 0</xyz>
+        <xyz>0 0 -1</xyz>
       </axis>
     </joint>
 
@@ -431,6 +431,13 @@
         <xyz>0 0 1</xyz>
       </axis>
     </joint>
-
+    <include>
+      <uri>model://hokuyo</uri>
+      <pose>0.2 0 0.2 0 0 0</pose>
+    </include>
+    <joint name="hokuyo_joint" type="fixed">
+      <child>hokuyo::link</child>
+      <parent>chassis</parent>
+    </joint>
   </model>
 </sdf>
