@@ -7,8 +7,11 @@
     <include>
       <uri>model://sun</uri>
     </include>
-    <include>
-      <uri>model://wheelchair</uri>
-    </include>
+    <model name="Wheelchair_Salsa">
+      <include>
+        <uri>model://wheelchair</uri>
+      </include>
+      <plugin name="read_joint_state" filename="libread_joint_state.so"/>
+    </model>
   </world>
 </sdf>

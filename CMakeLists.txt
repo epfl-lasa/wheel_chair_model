@@ -10,7 +10,8 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(gazebo REQUIRED)
+list(APPEND CMAKE_CXX_FLAGS "${GAZEBO_CXX_FLAGS}")
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -111,15 +112,15 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-# include_directories(include)
+include_directories(${GAZEBO_INCLUDE_DIRS})
+include_directories(include)
+	link_directories(${GAZEBO_LIBRARY_DIRS})
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
-
 ## Declare a C++ library
-# add_library(wheel_char_model
-#   src/${PROJECT_NAME}/wheel_char_model.cpp
-# )
+ add_library(read_joint_state src/read_joint_state.cpp
+ )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -134,9 +135,9 @@ include_directories(
 # add_dependencies(wheel_char_model_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(wheel_char_model_node
-#   ${catkin_LIBRARIES}
-# )
+ target_link_libraries(read_joint_state
+   ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES}
+ )
 
 #############
 ## Install ##
