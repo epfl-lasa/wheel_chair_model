@@ -19,8 +19,14 @@
 #include "ros/callback_queue.h"
 #include "ros/subscribe_options.h"
 #include "sensor_msgs/JointState.h"
+#include "sensor_msgs/JointState.h"
+#include "std_msgs/Float64MultiArray.h"
+#include "std_msgs/Int64.h"
 using namespace std;
 using namespace Eigen;
+
+enum ENUM_Control_Type{CONTROL_NONE=0, CONTROL_POS_2D, CONTROL_VEL_2D, CONTROL_TORQUE_2D, CONTROL_POS_COM, CONTROL_VEL_COM, CONTROL_TORQUE_COM};
+
 
 namespace gazebo
 {
@@ -44,24 +50,42 @@ public:
 
 private:
 
-	sensor_msgs::JointState mJoint_state;
-	ros::NodeHandle *rosNode;
-	ros::Publisher pubJoint_state;
+	void 						chatterCallback_desired_state_2D(const sensor_msgs::JointState & msg);
+	void 						chatterCallback_control_level(const std_msgs::Int64 & msg);
+	void 						chatterCallback_desired_state_complete(const sensor_msgs::JointState & msg);
 
 
-	int number_of_joints;
-	VectorXd Current_joint_position;
-	VectorXd Current_joint_velocity;
-	vector<string> Joint_names;
+	std::thread 				OnUpdateThread;
 
-	physics::ModelPtr model; /// \brief Pointer to the model.
+	ENUM_Control_Type 			Control_Level;
 
-	physics::JointPtr joint; /// \brief Pointer to the joint.
+	sensor_msgs::JointState 	mJoint_state;
+	ros::NodeHandle 			*rosNode;
 
-	std::thread OnUpdateThread;
+	ros::Publisher 				pubJoint_state;
+	ros::Subscriber 			sub_desired_state_2D;
+	ros::Subscriber 			sub_control_level;
+	ros::Subscriber 			sub_desired_state_complete;
+
+
+	int							number_of_joints;
+	vector<string> 				Joint_names;
+	VectorXd 					Current_joint_position;
+	VectorXd 					Current_joint_velocity;
+	VectorXd 					Desired_Position_complete;
+	VectorXd 					Desired_Velocity_complete;
+	VectorXd 					Desired_torque_complete;
+	VectorXd 					Desired_Position_2D;
+	VectorXd 					Desired_Velocity_2D;
+	VectorXd 					Desired_torque_2D;
+
+
+	physics::ModelPtr			model; /// \brief Pointer to the model.
+	physics::JointPtr 			joint; /// \brief Pointer to the joint.
+
 };
 
-// Tell Gazebo about this plugin, so that Gazebo can call Load on this plugin.
+// Tell Gazebo about this plug-in, so that Gazebo can call Load on this plug-in.
 GZ_REGISTER_MODEL_PLUGIN(Read_joint_state)
 }
 

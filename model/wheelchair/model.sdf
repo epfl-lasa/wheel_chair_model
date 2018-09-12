@@ -472,13 +472,13 @@
         <visualize>true</visualize>
       </sensor>
     </joint>
-    <include>
+    <!-- <include>
       <uri>model://hokuyo</uri>
-      <pose>0.2 0 0.2 0 0 0</pose>
+      <pose>-0.35 0 1 0 0 0</pose>
     </include>
     <joint name="hokuyo_joint" type="fixed">
       <child>hokuyo::link</child>
-      <parent>chassis</parent>
-    </joint>
+      <parent>Mainbody</parent>
+    </joint> -->
   </model>
 </sdf>
