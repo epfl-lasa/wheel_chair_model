@@ -24,8 +24,8 @@
       <include>
         <uri>model://wheelchair</uri>
       </include>
-      <plugin name="Read_joint_state" filename="libRead_joint_state.so"/>
-      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+     <!--  <plugin name="Read_joint_state" filename="libRead_joint_state.so"/> -->
+     <!--  <plugin name="Read_torque_force" filename="libRead_torque_force.so">
         <updateRate>100.0</updateRate>
         <topicName>force_torque_left_wheel_main_hinge</topicName>
         <jointName>wheelchair::left_wheel_main_hinge</jointName>
@@ -74,7 +74,7 @@
         <updateRate>100.0</updateRate>
         <topicName>force_torque_left_wheel_rear_hinge_pin</topicName>
         <jointName>wheelchair::left_wheel_rear_hinge_pin</jointName>
-      </plugin>
+      </plugin> -->
     </model>
   </world>
 </sdf>

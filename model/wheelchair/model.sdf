@@ -165,6 +165,7 @@
         <xyz>0 0 1</xyz>
       </axis>
       <sensor name="force_torque_left_wheel_front_hinge_pin" type="force_torque">
+<!--         <plugin name="Read_torque_force_test" filename="libRead_torque_force_test.so"/> --> <!-- Activate this line once you want to read the sensor directly -->
         <update_rate>100</update_rate>
         <visualize>true</visualize>
       </sensor>
