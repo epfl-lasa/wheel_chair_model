@@ -1,5 +1,5 @@
 
-#include <read_joint_state.h>
+#include <Read_joint_state.h>
 
 
 gazebo::Read_joint_state::Read_joint_state()
@@ -34,6 +34,7 @@ void gazebo::Read_joint_state::Load(physics::ModelPtr _model, sdf::ElementPtr _s
 
 	// Get the joint names and their initial positions.
 	number_of_joints =model->GetJointCount();
+
 	cout<<"Number of Joints are "<<number_of_joints<<endl;
 	Current_joint_position.resize(number_of_joints);
 	Current_joint_velocity.resize(number_of_joints);

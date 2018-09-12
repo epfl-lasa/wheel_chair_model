@@ -56,8 +56,8 @@
         <surface>
           <friction>
             <ode>
-              <mu>0</mu>
-              <mu2>0</mu2>
+              <mu>1.0</mu>
+              <mu2>1.0</mu2>
               <slip1>1.0</slip1>
               <slip2>1.0</slip2>
             </ode>
@@ -80,6 +80,10 @@
       <axis>
         <xyz>0 0 1</xyz>
       </axis>
+      <sensor name="force_torque_left_wheel_main_hinge" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
     </joint>
     <link name="right_main_wheel">
       <pose>-0.091 0.33 0.109 0 1.57 1.57</pose>
@@ -93,8 +97,8 @@
         <surface>
           <friction>
             <ode>
-              <mu>0</mu>
-              <mu2>0</mu2>
+              <mu>1.0</mu>
+              <mu2>1.0</mu2>
               <slip1>1.0</slip1>
               <slip2>1.0</slip2>
             </ode>
@@ -117,6 +121,10 @@
       <axis>
         <xyz>0 0 -1</xyz>
       </axis>
+      <sensor name="force_torque_right_wheel_main_hinge" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
     </joint>
 
     <link name="left_front_pin">
@@ -156,6 +164,10 @@
       <axis>
         <xyz>0 0 1</xyz>
       </axis>
+      <sensor name="force_torque_left_wheel_front_hinge_pin" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
     </joint>
 
     <link name="left_front_wheel">
@@ -170,8 +182,8 @@
         <surface>
           <friction>
             <ode>
-              <mu>0</mu>
-              <mu2>0</mu2>
+              <mu>1.0</mu>
+              <mu2>1.0</mu2>
               <slip1>1.0</slip1>
               <slip2>1.0</slip2>
             </ode>
@@ -194,6 +206,10 @@
       <axis>
         <xyz>0 0 1</xyz>
       </axis>
+      <sensor name="force_torque_left_wheel_front_hinge" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
     </joint>
 
 
@@ -234,6 +250,10 @@
       <axis>
         <xyz>0 0 1</xyz>
       </axis>
+      <sensor name="force_torque_right_wheel_front_hinge_pin" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
     </joint>
 
 
@@ -249,8 +269,8 @@
         <surface>
           <friction>
             <ode>
-              <mu>0</mu>
-              <mu2>0</mu2>
+              <mu>1.0</mu>
+              <mu2>1.0</mu2>
               <slip1>1.0</slip1>
               <slip2>1.0</slip2>
             </ode>
@@ -273,6 +293,10 @@
       <axis>
         <xyz>0 0 -1</xyz>
       </axis>
+      <sensor name="force_torque_right_wheel_front_hinge" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
     </joint>
 
 
@@ -288,8 +312,8 @@
         <surface>
           <friction>
             <ode>
-              <mu>0</mu>
-              <mu2>0</mu2>
+              <mu>1.0</mu>
+              <mu2>1.0</mu2>
               <slip1>1.0</slip1>
               <slip2>1.0</slip2>
             </ode>
@@ -312,6 +336,10 @@
       <axis>
         <xyz>0 0 1</xyz>
       </axis>
+      <sensor name="force_torque_left_wheel_rear_hinge" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
     </joint>
 
     <link name="right_rear_wheel">
@@ -326,8 +354,8 @@
         <surface>
           <friction>
             <ode>
-              <mu>0</mu>
-              <mu2>0</mu2>
+              <mu>1.0</mu>
+              <mu2>1.0</mu2>
               <slip1>1.0</slip1>
               <slip2>1.0</slip2>
             </ode>
@@ -350,6 +378,10 @@
       <axis>
         <xyz>0 0 -1</xyz>
       </axis>
+      <sensor name="force_torque_right_wheel_rear_hinge" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
     </joint>
 
     <link name="right_rear_pin">
@@ -390,6 +422,10 @@
       <axis>
         <xyz>0 0 1</xyz>
       </axis>
+      <sensor name="force_torque_right_wheel_rear_hinge_pin" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
     </joint>
 
 
@@ -430,6 +466,10 @@
       <axis>
         <xyz>0 0 1</xyz>
       </axis>
+      <sensor name="force_torque_left_wheel_rear_hinge_pin" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
     </joint>
     <include>
       <uri>model://hokuyo</uri>

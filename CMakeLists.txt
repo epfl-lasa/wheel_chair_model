@@ -7,6 +7,7 @@ project(wheel_chair_model)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
+  tf
 )
 
 ## System dependencies are found with CMake's conventions
@@ -119,7 +120,8 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 ## Declare a C++ library
- add_library(read_joint_state src/read_joint_state.cpp
+ add_library(Read_joint_state src/Read_joint_state.cpp include/Read_joint_state.h)
+ add_library(Read_torque_force src/gazebo_ros_ft_sensor.cpp include/gazebo_ros_ft_sensor.h
  )
 
 ## Add cmake target dependencies of the library
@@ -135,7 +137,11 @@ include_directories(
 # add_dependencies(wheel_char_model_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
- target_link_libraries(read_joint_state
+ target_link_libraries(Read_joint_state
+   ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES}
+ )
+
+  target_link_libraries(Read_torque_force
    ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES}
  )
 
