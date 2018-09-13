@@ -8,7 +8,7 @@
       <ode>
         <solver>
           <type>quick</type>
-          <iters>50</iters>
+          <iters>100</iters>
           <sor>1.0</sor> <!-- Important, see issue #2209 -->
           <use_dynamic_moi_rescaling>false</use_dynamic_moi_rescaling>
         </solver>

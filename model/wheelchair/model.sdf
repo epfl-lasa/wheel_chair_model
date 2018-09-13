@@ -51,7 +51,7 @@
       </visual>
     </link>
     <link name="left_main_wheel">
-      <pose>-0.091 -0.32 0.109 0 1.57 1.57</pose>
+      <pose>-0.091 -0.33 0.109 0 1.57 1.57</pose>
       <collision name="collision">
         <geometry>
           <cylinder>
@@ -62,8 +62,8 @@
         <surface>
           <friction>
             <ode>
-              <mu>100000.0</mu>
-              <mu2>100000.0</mu2>
+              <mu>1000000.0</mu>
+              <mu2>1000000.0</mu2>
               <slip1>0.0</slip1>
               <slip2>0.0</slip2>
             </ode>
@@ -103,8 +103,8 @@
         <surface>
           <friction>
             <ode>
-              <mu>100000.0</mu>
-              <mu2>100000.0</mu2>
+              <mu>1000000.0</mu>
+              <mu2>1000000.0</mu2>
               <slip1>0.0</slip1>
               <slip2>0.0</slip2>
             </ode>
@@ -134,7 +134,7 @@
     </joint>
 
     <link name="left_front_pin">
-      <pose>0.231 -0.32 0.149 0 3.14 1.57</pose>
+      <pose>0.241 -0.33 0.149 0 3.14 1.57</pose>
       <collision name="collision">
         <geometry>
           <mesh>
@@ -178,7 +178,7 @@
     </joint>
 
     <link name="left_front_wheel">
-      <pose>0.231 -0.32 0.039 0 1.57 1.57</pose>
+      <pose>0.245 -0.33 0.039 0 1.57 1.57</pose>
       <collision name="collision">
         <geometry>
           <cylinder>
@@ -308,7 +308,7 @@
 
 
     <link name="left_rear_wheel">
-      <pose>-0.548 -0.32 0.039 0 1.57 1.57</pose>
+      <pose>-0.548 -0.33 0.039 0 1.57 1.57</pose>
       <collision name="collision">
         <geometry>
           <cylinder>
@@ -437,7 +437,7 @@
 
 
     <link name="left_rear_pin">
-      <pose>-0.54 -0.32 0.15 0 3.14 1.57</pose>
+      <pose>-0.54 -0.33 0.15 0 3.14 1.57</pose>
       <collision name="collision">
         <geometry>
           <mesh>

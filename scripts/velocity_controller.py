@@ -48,8 +48,6 @@ class VelocityController():
             print('Pubslish new velocity')
             rospy.sleep(0.1)
 
-
-
             ds_mod = 1
             # Pubslish velocity
             vel = Twist()
