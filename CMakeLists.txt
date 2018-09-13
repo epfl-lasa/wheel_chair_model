@@ -6,6 +6,8 @@ project(wheel_chair_model)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  rospy
+  geometry_msgs
   std_msgs
   tf
 )
