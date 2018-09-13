@@ -115,6 +115,7 @@ void gazebo::Read_joint_state::Load(physics::ModelPtr _model,
 	rosNode = new ros::NodeHandle("Read_joint_state");
 	pubJoint_state = rosNode->advertise<sensor_msgs::JointState>(
 			"quickie_wheel_states", 1000);
+	pubWheelchair_state = rosNode->advertise<geometry_msgs::Pose2D>("quickie_state", 1000);
 	sub_desired_state_2D = rosNode->subscribe("/quickie_wheel_Desired_state_2D",
 			3, &Read_joint_state::chatterCallback_desired_state_2D, this);
 	sub_desired_state_complete = rosNode->subscribe(
@@ -152,6 +153,9 @@ void gazebo::Read_joint_state::Load(physics::ModelPtr _model,
 	Desired_Velocity_2D.resize(2);
 	Desired_torque_2D.resize(2);
 	Desired_Tele_State.resize(2);
+	mWheelchair.theta=0;
+	mWheelchair.x=0;
+	mWheelchair.y=0;
 
 	for (int i = 0; i < number_of_joints; i++)
 	{
@@ -201,6 +205,11 @@ void gazebo::Read_joint_state::OnUpdate()
 			mJoint_state.velocity[i] = Current_joint_velocity(i);
 		}
 		pubJoint_state.publish(mJoint_state);
+		Wheelchair_pos=model->GetWorldPose();
+		mWheelchair.x=Wheelchair_pos.pos.x;
+		mWheelchair.y=Wheelchair_pos.pos.y;
+		mWheelchair.theta=Wheelchair_pos.rot.GetAsEuler().z;
+		pubWheelchair_state.publish(mWheelchair);
 		switch (Control_Level)
 		{
 		case CONTROL_POS_2D:

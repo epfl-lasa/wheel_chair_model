@@ -23,6 +23,7 @@
 #include "std_msgs/Float64MultiArray.h"
 #include "std_msgs/Int64.h"
 #include "geometry_msgs/Twist.h"
+#include "geometry_msgs/Pose2D.h"
 using namespace std;
 using namespace Eigen;
 
@@ -62,9 +63,12 @@ private:
 	ENUM_Control_Type 			Control_Level;
 
 	sensor_msgs::JointState 	mJoint_state;
+	geometry_msgs::Pose2D		mWheelchair;
 	ros::NodeHandle 			*rosNode;
 
 	ros::Publisher 				pubJoint_state;
+	ros::Publisher 				pubWheelchair_state;
+	ros::Publisher 				pubObstacle_state;
 	ros::Subscriber 			sub_desired_state_2D;
 	ros::Subscriber 			sub_control_level;
 	ros::Subscriber 			sub_desired_state_complete;
@@ -82,7 +86,7 @@ private:
 	VectorXd 					Desired_Position_2D;
 	VectorXd 					Desired_Velocity_2D;
 	VectorXd 					Desired_torque_2D;
-
+	math::Pose					Wheelchair_pos;
 
 	physics::ModelPtr			model; /// \brief Pointer to the model.
 	physics::JointPtr 			joint; /// \brief Pointer to the joint.
