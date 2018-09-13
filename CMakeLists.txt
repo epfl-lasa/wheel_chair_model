@@ -123,9 +123,6 @@ include_directories(
  add_library(Read_joint_state src/Read_joint_state.cpp include/Read_joint_state.h)
  add_library(Read_torque_force src/gazebo_ros_ft_sensor.cpp include/gazebo_ros_ft_sensor.h
  )
-  add_library(Read_torque_force_test src/Read_torque_force.cpp include/Read_torque_force.h
- )
-
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -147,9 +144,6 @@ include_directories(
    ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES}
  )
 
-  target_link_libraries(Read_torque_force_test
-   ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES}
- )
 #############
 ## Install ##
 #############
