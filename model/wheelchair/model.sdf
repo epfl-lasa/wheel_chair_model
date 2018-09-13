@@ -6,7 +6,7 @@
     <link name="Mainbody">
       <pose>0 0 0 0 0 0</pose>
       <inertial>
-        <mass>126</mass>
+        <mass>100</mass>
         <inertia> <!-- inertias are tricky to compute -->
           <!-- http://gazebosim.org/tutorials?tut=inertia&cat=build_robot -->
           <ixx>12.10</ixx>       <!-- for a box: ixx = 0.083 * mass * (y*y + z*z) -->
@@ -29,8 +29,8 @@
             <ode>
               <mu>0</mu>
               <mu2>0</mu2>
-              <slip1>1.0</slip1>
-              <slip2>1.0</slip2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
             </ode>
           </friction>
         </surface>
@@ -56,10 +56,10 @@
         <surface>
           <friction>
             <ode>
-              <mu>1.0</mu>
-              <mu2>1.0</mu2>
-              <slip1>1.0</slip1>
-              <slip2>1.0</slip2>
+              <mu>10000.0</mu>
+              <mu2>10000.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
             </ode>
           </friction>
         </surface>
@@ -97,10 +97,10 @@
         <surface>
           <friction>
             <ode>
-              <mu>1.0</mu>
-              <mu2>1.0</mu2>
-              <slip1>1.0</slip1>
-              <slip2>1.0</slip2>
+              <mu>10000.0</mu>
+              <mu2>10000.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
             </ode>
           </friction>
         </surface>
@@ -141,8 +141,8 @@
             <ode>
               <mu>0</mu>
               <mu2>0</mu2>
-              <slip1>1.0</slip1>
-              <slip2>1.0</slip2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
             </ode>
           </friction>
         </surface>
@@ -183,10 +183,10 @@
         <surface>
           <friction>
             <ode>
-              <mu>1.0</mu>
-              <mu2>1.0</mu2>
-              <slip1>1.0</slip1>
-              <slip2>1.0</slip2>
+              <mu>10000000.0</mu>
+              <mu2>1000000.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
             </ode>
           </friction>
         </surface>
@@ -228,8 +228,8 @@
             <ode>
               <mu>0</mu>
               <mu2>0</mu2>
-              <slip1>1.0</slip1>
-              <slip2>1.0</slip2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
             </ode>
           </friction>
         </surface>
@@ -270,10 +270,10 @@
         <surface>
           <friction>
             <ode>
-              <mu>1.0</mu>
-              <mu2>1.0</mu2>
-              <slip1>1.0</slip1>
-              <slip2>1.0</slip2>
+              <mu>1000000.0</mu>
+              <mu2>1000000.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
             </ode>
           </friction>
         </surface>
@@ -313,10 +313,10 @@
         <surface>
           <friction>
             <ode>
-              <mu>1.0</mu>
-              <mu2>1.0</mu2>
-              <slip1>1.0</slip1>
-              <slip2>1.0</slip2>
+              <mu>100000000.0</mu>
+              <mu2>100000000.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
             </ode>
           </friction>
         </surface>
@@ -355,10 +355,10 @@
         <surface>
           <friction>
             <ode>
-              <mu>1.0</mu>
-              <mu2>1.0</mu2>
-              <slip1>1.0</slip1>
-              <slip2>1.0</slip2>
+              <mu>100000000.0</mu>
+              <mu2>100000000.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
             </ode>
           </friction>
         </surface>
@@ -399,8 +399,8 @@
             <ode>
               <mu>0</mu>
               <mu2>0</mu2>
-              <slip1>1.0</slip1>
-              <slip2>1.0</slip2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
             </ode>
           </friction>
         </surface>
@@ -444,8 +444,8 @@
             <ode>
               <mu>0</mu>
               <mu2>0</mu2>
-              <slip1>1.0</slip1>
-              <slip2>1.0</slip2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
             </ode>
           </friction>
         </surface>

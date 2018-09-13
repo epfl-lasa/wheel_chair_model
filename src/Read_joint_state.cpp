@@ -87,6 +87,16 @@ void gazebo::Read_joint_state::chatterCallback_control_level(
 
 }
 
+void gazebo::Read_joint_state::chatterCallback_desired_tele_state(
+		const geometry_msgs::Twist & msg)
+{
+	if (Control_Level == CONTROL_TELE)
+	{
+		Desired_Tele_State(0) = msg.linear.x;
+		Desired_Tele_State(1) = msg.angular.z;
+	}
+}
+
 gazebo::Read_joint_state::Read_joint_state()
 {
 
@@ -110,6 +120,8 @@ void gazebo::Read_joint_state::Load(physics::ModelPtr _model,
 	sub_desired_state_complete = rosNode->subscribe(
 			"/quickie_wheel_Desired_state_complete", 3,
 			&Read_joint_state::chatterCallback_desired_state_complete, this);
+	sub_desired_tele_state = rosNode->subscribe("/cmd_vel", 3,
+			&Read_joint_state::chatterCallback_desired_tele_state, this);
 	sub_control_level = rosNode->subscribe("/quickie_wheel_Control_level", 3,
 			&Read_joint_state::chatterCallback_control_level, this);
 
@@ -139,6 +151,7 @@ void gazebo::Read_joint_state::Load(physics::ModelPtr _model,
 	Desired_Position_2D.resize(2);
 	Desired_Velocity_2D.resize(2);
 	Desired_torque_2D.resize(2);
+	Desired_Tele_State.resize(2);
 
 	for (int i = 0; i < number_of_joints; i++)
 	{
@@ -155,8 +168,9 @@ void gazebo::Read_joint_state::Load(physics::ModelPtr _model,
 	mJoint_state.velocity.resize(number_of_joints);
 	mJoint_state.name.resize(number_of_joints);
 
-	Control_Level = CONTROL_NONE;
+	//Control_Level = CONTROL_NONE;
 	//Control_Level = CONTROL_TORQUE_2D;
+	Control_Level = CONTROL_TELE;
 	ros::Rate r(5); // 100 hz
 	int counter;
 	while ((Control_Level == CONTROL_NONE) && (counter < 50))
@@ -190,41 +204,55 @@ void gazebo::Read_joint_state::OnUpdate()
 		switch (Control_Level)
 		{
 		case CONTROL_POS_2D:
-			Control_Level = CONTROL_POS_2D;
+			model->GetJoints()[0]->SetPosition(0, Desired_Position_2D(0));
+			model->GetJoints()[1]->SetPosition(0, -Desired_Position_2D(0));
+			model->GetJoints()[2]->SetPosition(0, -Desired_Position_2D(1));
+			//model->GetJoints()[3]->SetPosition(0, 0);
+			model->GetJoints()[4]->SetPosition(0, -Desired_Position_2D(1));
+			//model->GetJoints()[5]->SetPosition(0, 0);
+			//model->GetJoints()[6]->SetPosition(0, 0);
+			//model->GetJoints()[7]->SetPosition(0, 0);
+			model->GetJoints()[8]->SetPosition(0, Desired_Position_2D(1));
+			model->GetJoints()[9]->SetPosition(0, Desired_Position_2D(1));
 			break;
 		case CONTROL_VEL_2D:
-			Control_Level = CONTROL_VEL_2D;
 			break;
 		case CONTROL_TORQUE_2D:
-			model->GetJoints()[0]->SetForce(0,Desired_torque_2D(0)); // The big wheels should have the same torque
-			model->GetJoints()[1]->SetForce(0,-Desired_torque_2D(0));// The big wheels should have the same torque
-			model->GetJoints()[2]->SetForce(0,-Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
-			model->GetJoints()[3]->SetForce(0,0);					 // The front and the rear wheel do not accept a torque, they are just free wheels
-			model->GetJoints()[4]->SetForce(0,-Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
-			model->GetJoints()[5]->SetForce(0,0);					 // The front and the rear wheel do not accept a torque, they are just free wheels
-			model->GetJoints()[6]->SetForce(0,0); 				 	 // The front and the rear wheel do not accept a torque, they are just free wheels
-			model->GetJoints()[7]->SetForce(0,0);					 // The front and the rear wheel do not accept a torque, they are just free wheels
-			model->GetJoints()[8]->SetForce(0,Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
-			model->GetJoints()[9]->SetForce(0,Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
-			Control_Level = CONTROL_TORQUE_2D;
+			model->GetJoints()[0]->SetForce(0, Desired_torque_2D(0)); // The big wheels should have the same torque
+			model->GetJoints()[1]->SetForce(0, -Desired_torque_2D(0)); // The big wheels should have the same torque
+			model->GetJoints()[2]->SetForce(0, -Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
+			model->GetJoints()[3]->SetForce(0, 0); // The front and the rear wheel do not accept a torque, they are just free wheels
+			model->GetJoints()[4]->SetForce(0, -Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
+			model->GetJoints()[5]->SetForce(0, 0); // The front and the rear wheel do not accept a torque, they are just free wheels
+			model->GetJoints()[6]->SetForce(0, 0); // The front and the rear wheel do not accept a torque, they are just free wheels
+			model->GetJoints()[7]->SetForce(0, 0); // The front and the rear wheel do not accept a torque, they are just free wheels
+			model->GetJoints()[8]->SetForce(0, Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
+			model->GetJoints()[9]->SetForce(0, Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
 			break;
 		case CONTROL_POS_COM:
-			Control_Level = CONTROL_POS_COM;
 			break;
 		case CONTROL_VEL_COM:
-			Control_Level = CONTROL_VEL_COM;
 			break;
 		case CONTROL_TORQUE_COM:
 			for (int i = 0; i < number_of_joints; i++)
 			{
-				model->GetJoints()[i]->SetForce(0,Desired_torque_complete(i));
+				model->GetJoints()[i]->SetForce(0, Desired_torque_complete(i));
 			}
-			Control_Level = CONTROL_TORQUE_COM;
+			break;
+		case CONTROL_TELE:
+			model->GetJoints()[0]->SetVelocity(0,Desired_Tele_State(0));
+			model->GetJoints()[1]->SetVelocity(0,-Desired_Tele_State(0));
+			model->GetJoints()[2]->SetPosition(0, -Desired_Tele_State(1));
+			model->GetJoints()[3]->SetVelocity(0, Desired_Tele_State(0));
+			model->GetJoints()[4]->SetPosition(0, -Desired_Tele_State(1));
+			model->GetJoints()[5]->SetVelocity(0, -Desired_Tele_State(0));
+			model->GetJoints()[6]->SetVelocity(0, Desired_Tele_State(0));
+			model->GetJoints()[7]->SetVelocity(0, -Desired_Tele_State(0));
+			model->GetJoints()[8]->SetPosition(0, Desired_Tele_State(1));
+			model->GetJoints()[9]->SetPosition(0, Desired_Tele_State(1));
 			break;
 		}
 		r.sleep();
 	}
-
-
 
 }

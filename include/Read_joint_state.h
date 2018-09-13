@@ -22,10 +22,11 @@
 #include "sensor_msgs/JointState.h"
 #include "std_msgs/Float64MultiArray.h"
 #include "std_msgs/Int64.h"
+#include "geometry_msgs/Twist.h"
 using namespace std;
 using namespace Eigen;
 
-enum ENUM_Control_Type{CONTROL_NONE=0, CONTROL_POS_2D, CONTROL_VEL_2D, CONTROL_TORQUE_2D, CONTROL_POS_COM, CONTROL_VEL_COM, CONTROL_TORQUE_COM};
+enum ENUM_Control_Type{CONTROL_NONE=0, CONTROL_POS_2D, CONTROL_VEL_2D, CONTROL_TORQUE_2D, CONTROL_POS_COM, CONTROL_VEL_COM, CONTROL_TORQUE_COM, CONTROL_TELE};
 
 
 namespace gazebo
@@ -53,6 +54,7 @@ private:
 	void 						chatterCallback_desired_state_2D(const sensor_msgs::JointState & msg);
 	void 						chatterCallback_control_level(const std_msgs::Int64 & msg);
 	void 						chatterCallback_desired_state_complete(const sensor_msgs::JointState & msg);
+	void 						chatterCallback_desired_tele_state(const geometry_msgs::Twist & msg);
 
 
 	std::thread 				OnUpdateThread;
@@ -66,6 +68,7 @@ private:
 	ros::Subscriber 			sub_desired_state_2D;
 	ros::Subscriber 			sub_control_level;
 	ros::Subscriber 			sub_desired_state_complete;
+	ros::Subscriber 			sub_desired_tele_state;
 
 
 	int							number_of_joints;
@@ -75,6 +78,7 @@ private:
 	VectorXd 					Desired_Position_complete;
 	VectorXd 					Desired_Velocity_complete;
 	VectorXd 					Desired_torque_complete;
+	VectorXd 					Desired_Tele_State;
 	VectorXd 					Desired_Position_2D;
 	VectorXd 					Desired_Velocity_2D;
 	VectorXd 					Desired_torque_2D;
