@@ -29,6 +29,7 @@
       <uri>model://sphere</uri>
       <name>sphere1</name>
       <pose>3.0 0 0 0 0 0</pose>
+      <plugin name="Read_obstacle_state_S1" filename="libRead_obstacle_state.so"/>
     </include>
   </world>
 </sdf>

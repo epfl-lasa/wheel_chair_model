@@ -81,6 +81,9 @@ void gazebo::Read_joint_state::chatterCallback_control_level(
 		case 6:
 			Control_Level = CONTROL_TORQUE_COM;
 			cout << "Control level is: " << " CONTROL_TORQUE_COM" << endl;
+		case 7:
+			Control_Level = CONTROL_TELE;
+			cout << "Control level is: " << " CONTROL_TELE" << endl;
 			break;
 		}
 	}
@@ -173,9 +176,9 @@ void gazebo::Read_joint_state::Load(physics::ModelPtr _model,
 	mJoint_state.velocity.resize(number_of_joints);
 	mJoint_state.name.resize(number_of_joints);
 
-	//Control_Level = CONTROL_NONE;
+	Control_Level = CONTROL_NONE;
 	//Control_Level = CONTROL_TORQUE_2D;
-	Control_Level = CONTROL_TELE;
+	//Control_Level = CONTROL_TELE;
 	ros::Rate r(5); // 100 hz
 	int counter;
 	while ((Control_Level == CONTROL_NONE) && (counter < 50))
