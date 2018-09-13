@@ -55,7 +55,7 @@ class VelocityController():
         # Robot and environment gemoetry
         self.wheelRad = 0.155  # [m]
         self.obs_read = 0.5 # [m]
-
+    
         # Attractor position
         self.pos_attr = np.array([10, 0, 0])
 
@@ -67,21 +67,23 @@ class VelocityController():
         while np.sum(self.awaitingObs):
             print('WAITING - missing obstacle {} position'.format(np.sum(self.awaitingObs) ) )
             rospy.sleep(0.1)
-        
+
+        # Create obstacles
+        self.obs = []
+        for oo in range(self.n_obs):
+            print('got obstacle')
+
+        #################### MAIN LOOP #################### 
         print('Starting loop.')
-        while not rospy.is_shutdown():    
-
-
+        while not rospy.is_shutdown(): 
             ds_mod = 1
+
             # Publish velocity
             vel = Twist()
             vel.linear.x = ds_mod/self.wheelRad
-            vel.linear.y = 0
-            vel.linear.z = 0
             vel.angular.z = 0
+            # vel.linear.y, vel.linear.z = 0, 0
 
-            # vel.linear = Vector3(0,0,0)
-            # vel.angular = Vector3(0,0,0)
             self.pub_vel.publish(vel)
             print('Pubslish new velocity')
 
