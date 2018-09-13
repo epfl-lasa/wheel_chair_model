@@ -1,6 +1,27 @@
 <launch>
-	  <env name="GAZEBO_MODEL_PATH" value="$(find wheel_chair_model)/models:$(optenv GAZEBO_MODEL_PATH)"/>
-  <include file="$(find wheel_chair_model)/launch/empty_world.launch">
-  	<arg name="world_name" value="$(find wheel_chair_model)/worlds/Wheelchair.world"/>
-  </include>
+	<arg name="obstacle" default="false"/>
+	<arg name="one_obstacles" default="false"/>
+	<arg name="multi_obstacles" default="true"/>
+
+	<env name="GAZEBO_MODEL_PATH" value="$(find wheel_chair_model)/models:$(optenv GAZEBO_MODEL_PATH)"/>
+	<group if="$(arg obstacle)">
+		<include file="$(find wheel_chair_model)/launch/empty_world.launch">
+			<arg name="world_name" value="$(find wheel_chair_model)/worlds/Wheelchair.world"/>
+		</include>
+	<!-- 	<arg name="one_obstacles" default="false"/>
+		<arg name="multi_obstacles" default="false"/> -->
+	</group>
+	<group if="$(arg one_obstacles)">
+		<include file="$(find wheel_chair_model)/launch/empty_world.launch">
+			<arg name="world_name" value="$(find wheel_chair_model)/worlds/Wheelchair_one_obstacle.world"/>
+		</include>
+<!-- 			<arg name="multi_obstacles" default="false"/> -->
+	</group>
+	<group if="$(arg multi_obstacles)">
+		<include file="$(find wheel_chair_model)/launch/empty_world.launch">
+			<arg name="world_name" value="$(find wheel_chair_model)/worlds/Wheelchair_multiple_obstacles.world"/>
+		</include>
+<!-- 			<arg name="multi_obstacles" default="false"/> -->
+	</group>
+
 </launch>

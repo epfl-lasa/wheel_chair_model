@@ -486,5 +486,56 @@
       <child>hokuyo::link</child>
       <parent>Mainbody</parent>
     </joint> -->
+     <plugin name="Read_joint_state" filename="libRead_joint_state.so"/>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_left_wheel_main_hinge</topicName>
+        <jointName>wheelchair::left_wheel_main_hinge</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_right_wheel_main_hinge</topicName>
+        <jointName>wheelchair::right_wheel_main_hinge</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_left_wheel_front_hinge_pin</topicName>
+        <jointName>wheelchair::left_wheel_front_hinge_pin</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_left_wheel_front_hinge</topicName>
+        <jointName>wheelchair::left_wheel_front_hinge</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_right_wheel_front_hinge_pin</topicName>
+        <jointName>wheelchair::right_wheel_front_hinge_pin</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_right_wheel_front_hinge</topicName>
+        <jointName>wheelchair::right_wheel_front_hinge</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_left_wheel_rear_hinge</topicName>
+        <jointName>wheelchair::left_wheel_rear_hinge</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_right_wheel_rear_hinge</topicName>
+        <jointName>wheelchair::right_wheel_rear_hinge</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_right_wheel_rear_hinge_pin</topicName>
+        <jointName>wheelchair::right_wheel_rear_hinge_pin</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_left_wheel_rear_hinge_pin</topicName>
+        <jointName>wheelchair::left_wheel_rear_hinge_pin</jointName>
+      </plugin>
   </model>
 </sdf>
