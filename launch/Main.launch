@@ -1,8 +1,7 @@
 <launch>
 	<arg name="obstacle" default="false"/>
-	<arg name="one_obstacles" default="false"/>
-	<arg name="multi_obstacles" default="true"/>
-	<arg name="Control_level" default="true"/>
+	<arg name="one_obstacles" default="true"/>
+	<arg name="multi_obstacles" default="false"/>
 
 	<env name="GAZEBO_MODEL_PATH" value="$(find wheel_chair_model)/models:$(optenv GAZEBO_MODEL_PATH)"/>
 	<group if="$(arg obstacle)">

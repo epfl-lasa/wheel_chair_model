@@ -40,8 +40,16 @@ class VelocityController():
         rospy.init_node('VelocityController' , anonymous=True)
         rate = rospy.Rate(freq) # Frequency
 
-        self.wheelRad = 0.155
+        self.wheelRad = 0.155  # [m]
+
+        self.obs_read = 0.5 # [m]
+
+        self.N_obs = 1 # number of obstacles, at the moment manually do automatic
         
+        while(self.awaitingPos):
+            rospy.sleep(0.1)
+        
+        print('Starting loop.')
         while not rospy.is_shutdown():    
             print('Pubslish new velocity')
             rospy.sleep(0.1)
@@ -50,6 +58,8 @@ class VelocityController():
             # Pubslish velocity
             vel = Twist()
             vel.linear.x = ds_mod/self.wheelRad
+            vel.linear.y = 0
+            vel.linear.z = 0
             vel.angular.z = 0
 
             # vel.linear = Vector3(0,0,0)
@@ -57,11 +67,12 @@ class VelocityController():
             self.pub_vel.publish(vel)
 
             # rospy.spinOnce()
-            # rospy.sleep()
+            rate.sleep()
 
 
     def callback_pos(self, msg): # Callback to get robots posisiton
         self.state2D = msg
+        self.awaitingPos = False
 
         print('got new message')
 
