@@ -6,15 +6,21 @@
     <link name="Mainbody">
       <pose>0 0 0 0 0 0</pose>
       <inertial>
-        <mass>100</mass>
+        <mass>1</mass>
         <inertia> <!-- inertias are tricky to compute -->
           <!-- http://gazebosim.org/tutorials?tut=inertia&cat=build_robot -->
-          <ixx>12.10</ixx>       <!-- for a box: ixx = 0.083 * mass * (y*y + z*z) -->
-          <ixy>0.03</ixy>         <!-- for a box: ixy = 0 -->
-          <ixz>2.70</ixz>         <!-- for a box: ixz = 0 -->
-          <iyy>13.0</iyy>       <!-- for a box: iyy = 0.083 * mass * (x*x + z*z) -->
-          <iyz>0.10</iyz>         <!-- for a box: iyz = 0 -->
-          <izz>9.0</izz>       <!-- for a box: izz = 0.083 * mass * (x*x + y*y) -->
+          <ixx>0.0</ixx>       <!-- for a box: ixx = 0.083 * mass * (y*y + z*z) -->
+          <ixy>0.0</ixy>         <!-- for a box: ixy = 0 -->
+          <ixz>0.0</ixz>         <!-- for a box: ixz = 0 -->
+          <iyy>0.0</iyy>       <!-- for a box: iyy = 0.083 * mass * (x*x + z*z) -->
+          <iyz>0.0</iyz>         <!-- for a box: iyz = 0 -->
+          <izz>0.0</izz>       <!-- for a box: izz = 0.083 * mass * (x*x + y*y) -->
+         <!--  <ixx>12.10</ixx> -->       <!-- for a box: ixx = 0.083 * mass * (y*y + z*z) -->
+         <!--  <ixy>0.03</ixy> -->         <!-- for a box: ixy = 0 -->
+          <!-- <ixz>2.70</ixz>     -->     <!-- for a box: ixz = 0 -->
+          <!-- <iyy>13.0</iyy>      -->  <!-- for a box: iyy = 0.083 * mass * (x*x + z*z) -->
+          <!-- <iyz>0.10</iyz>       -->   <!-- for a box: iyz = 0 -->
+         <!--  <izz>9.0</izz>      -->  <!-- for a box: izz = 0.083 * mass * (x*x + y*y) --> 
         </inertia>
       </inertial>
       <collision name="collision">
@@ -56,8 +62,8 @@
         <surface>
           <friction>
             <ode>
-              <mu>10000.0</mu>
-              <mu2>10000.0</mu2>
+              <mu>100000.0</mu>
+              <mu2>100000.0</mu2>
               <slip1>0.0</slip1>
               <slip2>0.0</slip2>
             </ode>
@@ -97,8 +103,8 @@
         <surface>
           <friction>
             <ode>
-              <mu>10000.0</mu>
-              <mu2>10000.0</mu2>
+              <mu>100000.0</mu>
+              <mu2>100000.0</mu2>
               <slip1>0.0</slip1>
               <slip2>0.0</slip2>
             </ode>
@@ -183,8 +189,8 @@
         <surface>
           <friction>
             <ode>
-              <mu>10000000.0</mu>
-              <mu2>1000000.0</mu2>
+              <mu>0.0</mu>
+              <mu2>0.0</mu2>
               <slip1>0.0</slip1>
               <slip2>0.0</slip2>
             </ode>
@@ -270,8 +276,8 @@
         <surface>
           <friction>
             <ode>
-              <mu>1000000.0</mu>
-              <mu2>1000000.0</mu2>
+              <mu>0.0</mu>
+              <mu2>0.0</mu2>
               <slip1>0.0</slip1>
               <slip2>0.0</slip2>
             </ode>
@@ -313,8 +319,8 @@
         <surface>
           <friction>
             <ode>
-              <mu>100000000.0</mu>
-              <mu2>100000000.0</mu2>
+              <mu>0.0</mu>
+              <mu2>0.0</mu2>
               <slip1>0.0</slip1>
               <slip2>0.0</slip2>
             </ode>
@@ -355,8 +361,8 @@
         <surface>
           <friction>
             <ode>
-              <mu>100000000.0</mu>
-              <mu2>100000000.0</mu2>
+              <mu>0.0</mu>
+              <mu2>0.0</mu2>
               <slip1>0.0</slip1>
               <slip2>0.0</slip2>
             </ode>

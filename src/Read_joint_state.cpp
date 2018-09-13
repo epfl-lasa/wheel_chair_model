@@ -240,14 +240,14 @@ void gazebo::Read_joint_state::OnUpdate()
 			}
 			break;
 		case CONTROL_TELE:
-			model->GetJoints()[0]->SetVelocity(0,Desired_Tele_State(0));
-			model->GetJoints()[1]->SetVelocity(0,Desired_Tele_State(0));
+			model->GetJoints()[0]->SetVelocity(0,Desired_Tele_State(0)+Desired_Tele_State(1));
+			model->GetJoints()[1]->SetVelocity(0,-Desired_Tele_State(0)+Desired_Tele_State(1));
 			model->GetJoints()[2]->SetPosition(0, 0);
-			model->GetJoints()[3]->SetVelocity(0, Desired_Tele_State(0));
+//			model->GetJoints()[3]->SetVelocity(0, Desired_Tele_State(0));
 			model->GetJoints()[4]->SetPosition(0, 0);
-			model->GetJoints()[5]->SetVelocity(0, -Desired_Tele_State(0));
-			model->GetJoints()[6]->SetVelocity(0, Desired_Tele_State(0));
-			model->GetJoints()[7]->SetVelocity(0, -Desired_Tele_State(0));
+	//		model->GetJoints()[5]->SetVelocity(0, -Desired_Tele_State(0));
+		//	model->GetJoints()[6]->SetVelocity(0, Desired_Tele_State(0));
+		//	model->GetJoints()[7]->SetVelocity(0, -Desired_Tele_State(0));
 			model->GetJoints()[8]->SetPosition(0, 0);
 			model->GetJoints()[9]->SetPosition(0, 0);
 /*			model->GetJoints()[2]->SetPosition(0, -Desired_Tele_State(1));
