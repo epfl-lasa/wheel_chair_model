@@ -17,7 +17,7 @@
 # ROS tools    
 import rospy
 
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Twist, Pose2D
 
 # MATH 
 import numpy as np
@@ -29,10 +29,8 @@ import copy # copying of lists
 
 class VelocityController():
     def __init__(self, dsController=False, freq=1, n_intSteps=20, dt_simu=0.1):
-
-
         # Create position subscriber
-        # self.sub_pos = rospy.Subscriber("positiion", PoseStamped, self.callback_attr)
+        self.sub_pos = rospy.Subscriber("/Read_joint_state/quickie_state", Pose2D, self.callback_pos)
 
         # Create velocity publisher
         self.pub_vel = rospy.Publisher('cmd_vel', Twist, queue_size=10)
@@ -63,6 +61,8 @@ class VelocityController():
 
 
     def callback_pos(self, msg): # Callback to get robots posisiton
+        self.state2D = msg
+
         print('got new message')
 
 if __name__ == '__main__':
