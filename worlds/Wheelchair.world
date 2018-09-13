@@ -76,5 +76,8 @@
         <jointName>wheelchair::left_wheel_rear_hinge_pin</jointName>
       </plugin>
     </model>
+    <include>
+      <uri>model://sphere</uri>
+    </include>
   </world>
 </sdf>
