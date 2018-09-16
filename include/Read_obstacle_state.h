@@ -52,14 +52,17 @@ public:
 
 private:
 
-
+	void 						chatterCallback_desired_state_2D(const geometry_msgs::Pose2D & msg);
 	std::thread 				OnUpdateThread;
 	geometry_msgs::Pose2D		mObstacle_pos;
 
 	ros::NodeHandle 			*rosNode;
 	ros::Publisher 				pubobstacle;
+	ros::Subscriber				sub_desired_state_2D;
 
 	math::Pose					obstacle_pos;
+	math::Pose					obstacle_pos_desired;
+	bool 						position_has_not_recieved;
 
 	physics::ModelPtr			model; /// \brief Pointer to the model.
 
