@@ -14,7 +14,7 @@ rosrun wheel_chair_model velocity_controller.py <xPos_attractor> <yPos_attractor
 rosrun wheel_chair_model velocity_controller.py 0 0 1
 ```
 
-Alternatively the attracter can be chosen at runtime by publishing a Pose2D to the following topic:
+The obstacles are all initialized in a circle form. It takes them a bit of time to take a random-like shape. Therefore, during simulation only the attracter should be changed at runtime by publishing a Pose2D to the topic '/Atteactor_position' topic.
 ```
 rostopic pub /Attractor_position geometry_msgs/Pose2D "x: 0
 y: 0.0
