@@ -4,13 +4,21 @@ The gazebo model of the quickie salsa m2 wheelchair
 **NOTE: THIS IS NOT THE FINAL REPO AND NOT COMPLETE. THIS NOTE WILL BE REMOVED ONCE WE HAVE THE WORKING/VERIFIABLE MODEL.**
 
 ## Velocity Controller for Obstacle Avoidance
-Run the velocity controller with: 
+Run the velocity controller with the attractor at the origin an one obstacle: 
 ```
 rosrun wheel_chair_model velocity_controller.py
 ```
 Or with specification of an attractor away from the origin
 ```
-rosrun wheel_chair_model velocity_controller.py <xPos_attractor> <yPos_attractor>
+rosrun wheel_chair_model velocity_controller.py <xPos_attractor> <yPos_attractor> <number of obstacles>
+rosrun wheel_chair_model velocity_controller.py 0 0 1
+```
+
+Alternatively the attracter can be chosen at runtime by publishing a Pose2D to the following topic:
+```
+rostopic pub /Attractor_position geometry_msgs/Pose2D "x: 0
+y: 0.0
+theta: 0.0"
 ```
 
 code

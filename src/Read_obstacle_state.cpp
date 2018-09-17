@@ -37,11 +37,13 @@ void gazebo::Read_obstacle_state::Load(physics::ModelPtr _model,
 			<< _model->GetName() << "]\n";
 	position_has_not_recieved=true;
 
-	while (position_has_not_recieved)
-	{
-		ros::spinOnce();
-		cout<<"Waiting for the position of the obstacle. Position of "<<model->GetName()<<" has not been received"<<endl;
-	}
+	// Commented because this does delay gazebo start up
+	// while (position_has_not_recieved)
+	// {
+		// ros::spinOnce();
+		// cout<<"Waiting for the position of the obstacle. Position of "<<model->GetName()<<" has not been received"<<endl;
+		// ros::Duration(0.1).sleep(); // sleep for half a second -- does not work before revieving obstacle
+	// }
 
 	OnUpdateThread = std::thread(std::bind(&Read_obstacle_state::OnUpdate, this));
 }
