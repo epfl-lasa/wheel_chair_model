@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<sdf version="1.4">
+  <world name="default">
+    <physics name="default_physics" default="0" type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>50</iters>
+          <sor>1.0</sor> <!-- Important, see issue #2209 -->
+          <use_dynamic_moi_rescaling>false</use_dynamic_moi_rescaling>
+        </solver>
+      </ode>
+    </physics>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <model name="Wheelchair_Salsa">
+      <include>
+        <uri>model://wheelchair</uri>
+      </include>
+    </model>
+    <include>
+      <uri>model://cylinder</uri>
+      <name>cylinder</name>
+      <pose>3.0 -0.65 0 1.57 0 0</pose>
+      <plugin name="Read_obstacle_state_S1" filename="libRead_obstacle_state.so"/>
+    </include>
+  </world>
+</sdf>

@@ -142,10 +142,11 @@ void gazebo::Read_joint_state::Load(physics::ModelPtr _model,
 
 	// Store the model pointer for convenience.
 	model = _model;
-	number_of_joints = 0;
+	number_of_joints = 2;
 
-	// Get the joint names and their initial positions.
+/*	// Get the joint names and their initial positions. It gave us all the joints, either active or passive. The wheels in front and back shoud be passive and without any encoder so..
 	number_of_joints = model->GetJointCount();
+	*/
 
 	cout << "Number of Joints are " << number_of_joints << endl;
 	Current_joint_position.resize(number_of_joints);
@@ -219,28 +220,12 @@ void gazebo::Read_joint_state::OnUpdate()
 		case CONTROL_POS_2D:
 			model->GetJoints()[0]->SetPosition(0, Desired_Position_2D(0));
 			model->GetJoints()[1]->SetPosition(0, -Desired_Position_2D(0));
-			model->GetJoints()[2]->SetPosition(0, -Desired_Position_2D(1));
-			//model->GetJoints()[3]->SetPosition(0, 0);
-			model->GetJoints()[4]->SetPosition(0, -Desired_Position_2D(1));
-			//model->GetJoints()[5]->SetPosition(0, 0);
-			//model->GetJoints()[6]->SetPosition(0, 0);
-			//model->GetJoints()[7]->SetPosition(0, 0);
-			model->GetJoints()[8]->SetPosition(0, Desired_Position_2D(1));
-			model->GetJoints()[9]->SetPosition(0, Desired_Position_2D(1));
 			break;
 		case CONTROL_VEL_2D:
 			break;
 		case CONTROL_TORQUE_2D:
 			model->GetJoints()[0]->SetForce(0, Desired_torque_2D(0)); // The big wheels should have the same torque
 			model->GetJoints()[1]->SetForce(0, -Desired_torque_2D(0)); // The big wheels should have the same torque
-			model->GetJoints()[2]->SetForce(0, -Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
-			model->GetJoints()[3]->SetForce(0, 0); // The front and the rear wheel do not accept a torque, they are just free wheels
-			model->GetJoints()[4]->SetForce(0, -Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
-			model->GetJoints()[5]->SetForce(0, 0); // The front and the rear wheel do not accept a torque, they are just free wheels
-			model->GetJoints()[6]->SetForce(0, 0); // The front and the rear wheel do not accept a torque, they are just free wheels
-			model->GetJoints()[7]->SetForce(0, 0); // The front and the rear wheel do not accept a torque, they are just free wheels
-			model->GetJoints()[8]->SetForce(0, Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
-			model->GetJoints()[9]->SetForce(0, Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
 			break;
 		case CONTROL_POS_COM:
 			break;
@@ -257,22 +242,6 @@ void gazebo::Read_joint_state::OnUpdate()
 						Desired_Tele_State(0) + Desired_Tele_State(1));
 			model->GetJoints()[1]->SetVelocity(0,
 					-Desired_Tele_State(0) + Desired_Tele_State(1));
-			model->GetJoints()[2]->SetPosition(0, 0);
-//			model->GetJoints()[3]->SetVelocity(0, Desired_Tele_State(0));
-			model->GetJoints()[4]->SetPosition(0, 0);
-			//		model->GetJoints()[5]->SetVelocity(0, -Desired_Tele_State(0));
-			//	model->GetJoints()[6]->SetVelocity(0, Desired_Tele_State(0));
-			//	model->GetJoints()[7]->SetVelocity(0, -Desired_Tele_State(0));
-			model->GetJoints()[8]->SetPosition(0, 0);
-			model->GetJoints()[9]->SetPosition(0, 0);
-			/*			model->GetJoints()[2]->SetPosition(0, -Desired_Tele_State(1));
-			 model->GetJoints()[3]->SetVelocity(0, Desired_Tele_State(0));
-			 model->GetJoints()[4]->SetPosition(0, -Desired_Tele_State(1));
-			 model->GetJoints()[5]->SetVelocity(0, -Desired_Tele_State(0));
-			 model->GetJoints()[6]->SetVelocity(0, Desired_Tele_State(0));
-			 model->GetJoints()[7]->SetVelocity(0, -Desired_Tele_State(0));
-			 model->GetJoints()[8]->SetPosition(0, Desired_Tele_State(1));
-			 model->GetJoints()[9]->SetPosition(0, Desired_Tele_State(1));*/
 			break;
 		}
 		r.sleep();
