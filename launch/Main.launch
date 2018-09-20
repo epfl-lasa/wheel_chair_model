@@ -1,4 +1,5 @@
 <launch>
+<!-- Define the scnerio here, make sure that only one of them is true and the othe two are false -->
 	<arg name="obstacle" default="true"/>
 	<arg name="one_obstacles" default="false"/>
 	<arg name="multi_obstacles" default="false"/>
