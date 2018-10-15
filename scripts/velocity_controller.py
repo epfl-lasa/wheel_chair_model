@@ -39,7 +39,7 @@ from lib_modulation import *
 from dynamicalSystem_lib import constantVel_positionBased
 
 class VelocityController():
-    def __init__(self, attr_x=0, attr_y=0, n_obs = 1, dsController=False, freq=100, n_intSteps=20, dt_simu=0.1):
+    def __init__(self, attr_x=0, attr_y=0, n_obs = 1, obs_pos=[[3,0]],dsController=False, freq=100, n_intSteps=20, dt_simu=0.1):
         rospy.init_node('VelocityController' , anonymous=True)
         rospy.on_shutdown(self.call_shutdown) # shutdown command
         rate = rospy.Rate(freq) # Frequency
@@ -107,14 +107,23 @@ class VelocityController():
         print('self.pos_attr', self.pos_attr)
 
         # Initialize obstacles
-        self.dist_min = 2 # distance between obstacles
-        R_obsPos = 5
-        for oo in range(self.n_obs):
-            self.obs_pos[oo] = Pose2D()
-            self.obs_pos[oo].x = R_obsPos*np.cos(2*pi/self.n_obs*oo)
-            self.obs_pos[oo].y = R_obsPos*np.sin(2*pi/self.n_obs*oo)
-            self.obs_pos[oo].theta = 0
-            self.pub_obs[oo].publish(self.obs_pos[oo])
+        if False: # Circular initial set up
+            self.dist_min = 2 # distance between obstacles
+            nR_obsPos = 5
+            for oo in range(self.n_obs):
+                self.obs_pos[oo] = Pose2D()
+                self.obs_pos[oo].x = R_obsPos*np.cos(2*pi/self.n_obs*oo)
+                self.obs_pos[oo].y = R_obsPos*np.sin(2*pi/self.n_obs*oo)
+                self.obs_pos[oo].theta = 0
+                self.pub_obs[oo].publish(self.obs_pos[oo])
+
+        if True:
+            for oo in range(self.n_obs):
+                self.obs_pos[oo] = Pose2D()
+                self.obs_pos[oo].x = obs_pos[oo][0]
+                self.obs_pos[oo].y = obs_pos[oo][1]
+                self.obs_pos[oo].theta = 0
+                self.pub_obs[oo].publish(self.obs_pos[oo])
             
 
         # Check that all callback functions are called at least once! before entering main loop
