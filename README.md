@@ -2,7 +2,7 @@
 The gazebo model of the quickie salsa m2 wheelchair. This branch holds the road-world implemented by Nadia:
 
 <p align="center">
-<img src="https://github.com/sinamr66/quickie_salsa_m2/blob/nadia/figs/road_simulation.png"></>
+<img src="https://github.com/sinamr66/quickie_salsa_m2/blob/nadia/figs/road_simulation.png" width="500"></>
 
 
 **NOTE: THIS IS NOT THE FINAL REPO AND NOT COMPLETE. THIS NOTE WILL BE REMOVED ONCE WE HAVE THE WORKING/VERIFIABLE MODEL.**
@@ -17,6 +17,12 @@ and in a new terminal
 roslaunch wheel_chair_model Main.launch
 ```
 There are three differnt scenrios avaibale in this package, check Main.launch for more information.
+
+- The road world shown above use the folliwing command:
+```xml
+<arg name="world_name" value="$(find wheel_chair_model)/worlds/Wheelchair_road.world"/>
+```
+
 
 ## Velocity Controller for Obstacle Avoidance
 Run the velocity controller with the attractor at the origin an one obstacle: 
