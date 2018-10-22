@@ -18,7 +18,7 @@ roslaunch wheel_chair_model Main.launch
 ```
 There are three differnt scenrios avaibale in this package, check Main.launch for more information.
 
-- The road world shown above use the folliwing command:
+- To load the road world shown above use the folliwing command:
 ```xml
 <arg name="world_name" value="$(find wheel_chair_model)/worlds/Wheelchair_road.world"/>
 ```
