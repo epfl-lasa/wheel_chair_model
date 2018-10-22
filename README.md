@@ -1,5 +1,9 @@
 # quickie_salsa_m2
-The gazebo model of the quickie salsa m2 wheelchair
+The gazebo model of the quickie salsa m2 wheelchair. This branch holds the road-world implemented by Nadia:
+
+<p align="center">
+<img src="https://github.com/sinamr66/quickie_salsa_m2/blob/nadia/figs/road_simulation.png"></>
+
 
 **NOTE: THIS IS NOT THE FINAL REPO AND NOT COMPLETE. THIS NOTE WILL BE REMOVED ONCE WE HAVE THE WORKING/VERIFIABLE MODEL.**
 
