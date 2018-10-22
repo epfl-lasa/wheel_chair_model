@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<sdf version="1.4">
+  <world name="default">
+      <scene>
+       <grid>false</grid>
+    </scene>
+    <physics name="default_physics" default="0" type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>50</iters>
+          <sor>1.0</sor> <!-- Important, see issue #2209 -->
+          <use_dynamic_moi_rescaling>false</use_dynamic_moi_rescaling>
+        </solver>
+      </ode>
+    </physics>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <model name="Wheelchair_Salsa">
+      <include>
+        <uri>model://wheelchair</uri>
+      </include>
+    </model>
+    <include>
+      <uri>model://stop_sign</uri>
+      <name>stop</name>
+      <pose> 10 4.5 0 0 0 0</pose>
+    </include> 
+    <!-- Scenario 1 -->
+    <include>
+      <uri>model://cone</uri>
+      <name>cone1</name>
+      <pose>2.5 -2.0 0 0 0 0</pose>
+    </include> 
+    <include>
+      <uri>model://cone</uri>
+      <name>cone2</name>
+      <pose> 5.0 0.0 0 0 0 0</pose>
+    </include> 
+    <include>
+      <uri>model://cone</uri>
+      <name>cone3</name>
+      <pose>7.5 -2.0 0.0 0 0 0 </pose>
+    </include>     
+    <model name="ground">
+      <link name="body">
+        <collision name="geom">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+      </link>
+      <static>true</static>
+    </model>
+    <road name="my_road">
+      <width>14</width>
+      <point>-2 0 0</point>
+      <point>11 0 0</point>
+      <material>
+        <script>
+          <uri>file://media/materials/scripts/gazebo.material</uri>
+          <name>Gazebo/Lanes_2</name>
+        </script>
+      </material>
+    </road>
+  </world>
+</sdf>
