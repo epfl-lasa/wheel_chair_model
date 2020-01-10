@@ -1,9 +1,16 @@
-# quickie_salsa_m2
-The gazebo model of the quickie salsa m2 wheelchair
+# Wheel Chair Simulation 
 
-**NOTE: THIS IS NOT THE FINAL REPO AND NOT COMPLETE. THIS NOTE WILL BE REMOVED ONCE WE HAVE THE WORKING/VERIFIABLE MODEL.**
+## Installation
+Install ignition-math, as described here:
+https://ignitionrobotics.org/api/math/6.4/install.html
 
-## How to run the simulator
+! For ubuntu 14.04 (trusty with ROS inidgo), install version 3:
+```
+sudo apt-get install libignition-math-dev
+```
+
+
+## Run the simulator
 To run the simulator, one just simply need to run
 ```
 roscore

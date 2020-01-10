@@ -218,8 +218,9 @@ void gazebo::Read_joint_state::OnUpdate()
 		switch (Control_Level)
 		{
 		case CONTROL_POS_2D:
-			model->GetJoints()[0]->SetPosition(0, Desired_Position_2D(0));
-			model->GetJoints()[1]->SetPosition(0, -Desired_Position_2D(0));
+			// model->GetJoints()[0]->SetPosition(0, Desired_Position_2D(0));
+			// model->GetJoints()[1]->SetPosition(0, -Desired_Position_2D(0));
+		        std::cout << "WARNING: activate SetPositio for Joints\n";
 			break;
 		case CONTROL_VEL_2D:
 			break;
