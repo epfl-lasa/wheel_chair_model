@@ -201,10 +201,6 @@ class VelocityController():
                     obs_pred[oo].x0 = obs_pred[oo].x0 + obs_pred[oo].xd*self.dt
                     # TODO -- add for rotation
                 
-            # Publish velocity
-            vel = Twist()
-            vel.linear.x = LA.norm(ds[:,0])/self.wheelRad
-
             # if LA.norm(vel.linear.x) < 0.:
             if False:
                 # limit vibration when approaching attractor
@@ -212,30 +208,29 @@ class VelocityController():
                 self.call_shutdown()
                 continue
 
-            #phi0 = np.arctan2(ds[1,0], ds[0,0])
-            #phi0 = self.robo_pos.
+            # Publish velocity of wheels
+            vel = Twist()
+            vel.linear.x = LA.norm(ds[:,0])/self.wheelRad
+
+            # Caluclate desired orientation
             phi0 = self.robo_pos.theta
             phi1 = np.arctan2(ds[1,1], ds[0,1])
             dPhi = phi1-phi0
 
-            # correct for disoncitnuity at -pi/pi
-            while dPhi > pi: 
+            while dPhi > pi: # correct for disoncitnuity at -pi/pi
                 dPhi = pi-2*pi
             while dPhi < -pi:
                 dPhi = pi+2*pi
+
+            # Calulate the desired angular velocity
             dPhi = dPhi/self.dt
             dPhi_max = 40./180*pi
-            if np.abs(dPhi) > dPhi_max:
+            if np.abs(dPhi) > dPhi_max: # only rotate when to close to the robot
                 dPhi = np.copysign(dPhi_max, dPhi)
                 vel.linear.x = 0
                 print('WAIT -- repositioning')
-            
-            vel.angular.z = dPhi*0.8
 
-            # vel.linear.y, vel.linear.z = 0, 0
-            if False:
-                vel.angular.z = 0
-                vel.linear.x = 0
+            vel.angular.z = dPhi*1.0
 
             self.pub_vel.publish(vel)
             # print()

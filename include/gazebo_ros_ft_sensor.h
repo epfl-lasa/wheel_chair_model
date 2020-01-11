@@ -36,6 +36,9 @@
 #include <boost/thread/mutex.hpp>
 #include <geometry_msgs/WrenchStamped.h>
 
+#include <ignition/math.hh>
+
+
 namespace gazebo
 {
 /// @addtogroup gazebo_dynamic_plugins Gazebo ROS Dynamic Plugins

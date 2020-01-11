@@ -185,8 +185,10 @@ void GazeboRosFT::UpdateChild()
   force = wrench.body2Force;
   torque = wrench.body2Torque;
 #else
-  force = wrench.body2Force.Ign();
-  torque = wrench.body2Torque.Ign();
+  // force = wrench.body2Force.Ign();
+  // torque = wrench.body2Torque.Ign();
+  std::cout << "WARNING: activate alternative method\n";
+  std::cout << "Fiel gazebo_ros_ft_sensor.cpp // line 191\n";
 #endif
 
 
