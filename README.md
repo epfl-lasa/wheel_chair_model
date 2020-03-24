@@ -1,4 +1,4 @@
-# Wheel Chari model
+# Wheel Chair model
 The gazebo model of the quickie salsa m2 wheelchair. This branch holds the road-world implemented by Nadia:
 
 <p align="center">
