@@ -166,7 +166,8 @@ void gazebo::Read_joint_state::Load(physics::ModelPtr _model,
 		joint = model->GetJoints()[i];
 		Joint_names.push_back(joint->GetName());
 		mJoint_state.name.push_back(joint->GetName());
-		Current_joint_position(i) = joint->GetAngle(0).Radian();
+		// Current_joint_position(i) = joint->GetAngle(0).Radian();
+                Current_joint_position(i) = joint->Position(0);
 		Current_joint_velocity(i) = joint->GetVelocity(0);
 		cout << "Name of joint " << i << " is: " << joint->GetName() << endl;
 	}
@@ -202,17 +203,22 @@ void gazebo::Read_joint_state::OnUpdate()
 	{
 		for (int i = 0; i < number_of_joints; i++)
 		{
-			Current_joint_position(i) =
-					model->GetJoints()[i]->GetAngle(0).Radian();
+                  // Current_joint_position(i) = model->GetJoints()[i]->GetAngle(0).Radian();
+                  Current_joint_position(i) = model->GetJoints()[i]->Position(0);
+					
 			Current_joint_velocity(i) = model->GetJoints()[i]->GetVelocity(0);
 			mJoint_state.position[i] = Current_joint_position(i);
 			mJoint_state.velocity[i] = Current_joint_velocity(i);
 		}
 		pubJoint_state.publish(mJoint_state);
-		Wheelchair_pos = model->GetWorldPose();
-		mWheelchair.x = Wheelchair_pos.pos.x;
-		mWheelchair.y = Wheelchair_pos.pos.y;
-		mWheelchair.theta = Wheelchair_pos.rot.GetAsEuler().z;
+		// Wheelchair_pos = model->GetWorldPose();
+		// mWheelchair.x = Wheelchair_pos.pos.x;
+		// mWheelchair.y = Wheelchair_pos.pos.y;
+                Wheelchair_pos = model->WorldPose();
+                mWheelchair.x = Wheelchair_pos.Pos().X();
+                mWheelchair.y = Wheelchair_pos.Pos().Y();
+		// mWheelchair.theta = Wheelchair_pos.rot.GetAsEuler().z;
+                mWheelchair.theta = Wheelchair_pos.Rot().Euler()[2];
 		pubWheelchair_state.publish(mWheelchair);
 		switch (Control_Level)
 		{

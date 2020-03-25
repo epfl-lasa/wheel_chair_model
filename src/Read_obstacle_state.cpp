@@ -2,18 +2,18 @@
 
 void gazebo::Read_obstacle_state::chatterCallback_desired_state_2D(const geometry_msgs::Pose2D & msg)
 {
-	obstacle_pos_desired.pos.x=msg.x;
-	obstacle_pos_desired.pos.y=msg.y;
-	position_has_not_recieved=false;
+  // obstacle_pos_desired.pos.x=msg.x;
+  // obstacle_pos_desired.pos.y=msg.y;
+  obstacle_pos_desired.Set(msg.x, msg.y, 0, 0, 0, 0);
+  position_has_not_recieved=false;
 }
-
 
 gazebo::Read_obstacle_state::Read_obstacle_state()
 {
 
 }
-void gazebo::Read_obstacle_state::Load(physics::ModelPtr _model,
-		sdf::ElementPtr _sdf)
+
+void gazebo::Read_obstacle_state::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 {
 	model = _model;
 	// Initialize ros
@@ -54,13 +54,17 @@ void gazebo::Read_obstacle_state::OnUpdate()
 
 	while (rosNode->ok())
 	{
-		obstacle_pos = model->GetWorldPose();
-		mObstacle_pos.x = obstacle_pos.pos.x;
-		mObstacle_pos.y = obstacle_pos.pos.y;
-		mObstacle_pos.theta = obstacle_pos.rot.GetAsEuler().z;
+          // obstacle_pos = model->GetWorldPose();
+		// mObstacle_pos.x = obstacle_pos.pos.x;
+		// mObstacle_pos.y = obstacle_pos.pos.y;
+          obstacle_pos = model->WorldPose();
+                mObstacle_pos.x = obstacle_pos.Pos().X();
+                mObstacle_pos.y = obstacle_pos.Pos().Y();
+                
+		// mObstacle_pos.theta = obstacle_pos.rot.GetAsEuler().z;
+                mObstacle_pos.theta = obstacle_pos.Rot().Euler()[2];
 		pubobstacle.publish(mObstacle_pos);
 		model->SetWorldPose(obstacle_pos_desired);
 		r.sleep();
 	}
-
 }

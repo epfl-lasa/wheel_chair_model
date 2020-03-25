@@ -16,23 +16,23 @@ and in a new terminal
 ```
 roslaunch wheel_chair_model Main.launch
 ```
-There are three differnt scenrios avaibale in this package, check Main.launch for more information.
 
+There are three differnt scenrios avaibale in this package, check Main.launch for more information.
 - To load the road world shown above use the folliwing command:
-```xml
+```
 <arg name="world_name" value="$(find wheel_chair_model)/worlds/Wheelchair_road.world"/>
 ```
 
 
 ## Velocity Controller for Obstacle Avoidance
-Run the velocity controller with the attractor at the origin an one obstacle: 
+Run the velocity controller with the attractor at the origin:
 ```
 rosrun wheel_chair_model velocity_controller.py
 ```
-Or with specification of an attractor away from the origin
+Or with specification of an attractor
 ```
-rosrun wheel_chair_model velocity_controller.py <xPos_attractor> <yPos_attractor> <number of obstacles>
-rosrun wheel_chair_model velocity_controller.py 0 0 1
+rosrun wheel_chair_model velocity_controller.py <xPos_attractor> <yPos_attractor>
+rosrun wheel_chair_model velocity_controller.py 0 0
 ```
 
 The obstacles are all initialized in a circle form. It takes them a bit of time to take a random-like shape. Therefore, during simulation, only the attracter should be changed at runtime by publishing a Pose2D to the topic '/Atteactor_position' topic.

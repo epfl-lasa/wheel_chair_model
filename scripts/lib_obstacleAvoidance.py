@@ -51,8 +51,6 @@ def compute_weights(distMeas, N, distMeas_min=1, weightType='inverseGamma'):
     else:
         warnings.warn("Unkown weighting method.")
 
-    #print('w', w)
-
     return w
 
 

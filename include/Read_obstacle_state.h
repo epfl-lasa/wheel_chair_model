@@ -8,8 +8,10 @@
 #ifndef WHEEL_CHAIR_MODEL_INCLUDE_READ_OBSTACLE_STATE_H_
 #define WHEEL_CHAIR_MODEL_INCLUDE_READ_OBSTACLE_STATE_H_
 
-
 #include <gazebo/gazebo.hh>
+#include <ignition/math.hh>
+// #include <gazebo/math/gzmath.hh>
+// #include <gazebo/Math.hh>
 #include "eigen3/Eigen/Dense"
 #include <gazebo/physics/physics.hh>
 #include <gazebo/transport/transport.hh>
@@ -24,6 +26,7 @@
 #include "std_msgs/Int64.h"
 #include "geometry_msgs/Twist.h"
 #include "geometry_msgs/Pose2D.h"
+
 using namespace std;
 using namespace Eigen;
 
@@ -60,8 +63,10 @@ private:
 	ros::Publisher 				pubobstacle;
 	ros::Subscriber				sub_desired_state_2D;
 
-	math::Pose					obstacle_pos;
-	math::Pose					obstacle_pos_desired;
+  // gazebo::math::Pose					obstacle_pos;
+  // gazebo::math::Pose					obstacle_pos_desired;
+  ignition::math::Pose3<double>				obstacle_pos;
+  ignition::math::Pose3<double>				obstacle_pos_desired;
 	bool 						position_has_not_recieved;
 
 	physics::ModelPtr			model; /// \brief Pointer to the model.

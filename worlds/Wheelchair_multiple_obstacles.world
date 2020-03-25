@@ -23,52 +23,53 @@
     <model name="Wheelchair_Salsa">
       <include>
         <uri>model://wheelchair</uri>
+        <pose>-2.0 0.0 0.1 0 0 0</pose>
       </include>
     </model>
     <include>
-      <uri>model://sphere</uri>
+      <uri>model://human_ellipse</uri>
       <name>sphere1</name>
       <pose>2.0 2.2 0 0 0 0</pose>
       <plugin name="Read_obstacle_state_S1" filename="libRead_obstacle_state.so"/>
     </include>
     <include>
-      <uri>model://sphere</uri>
+      <uri>model://human_ellipse</uri>
       <name>sphere2</name>
       <pose>2.0 0 0 0 0 0</pose>
       <plugin name="Read_obstacle_state_S1" filename="libRead_obstacle_state.so"/>
     </include>
     <include>
-      <uri>model://sphere</uri>
+      <uri>model://human_ellipse</uri>
       <name>sphere3</name>
       <pose>2.0 -2.2 0 0 0 0</pose>
       <plugin name="Read_obstacle_state_S1" filename="libRead_obstacle_state.so"/>
     </include>
     <include>
-      <uri>model://sphere</uri>
+      <uri>model://human_ellipse</uri>
       <name>sphere6</name>
       <pose>6 2.2 0 0 0 0</pose>
       <plugin name="Read_obstacle_state_S1" filename="libRead_obstacle_state.so"/>
     </include>
     <include>
-      <uri>model://sphere</uri>
+      <uri>model://human_ellipse</uri>
       <name>sphere7</name>
       <pose>6 0 0 0 0 0</pose>
       <plugin name="Read_obstacle_state_S1" filename="libRead_obstacle_state.so"/>
     </include>
     <include>
-      <uri>model://sphere</uri>
+      <uri>model://human_ellipse</uri>
       <name>sphere8</name>
       <pose>6 -2.2 0 0 0 0</pose>
       <plugin name="Read_obstacle_state_S1" filename="libRead_obstacle_state.so"/>
     </include>
       <include>
-      <uri>model://sphere</uri>
+      <uri>model://human_ellipse</uri>
       <name>sphere4</name>
       <pose>4 1.1 0 0 0 0</pose>
       <plugin name="Read_obstacle_state_S1" filename="libRead_obstacle_state.so"/>
     </include>
         <include>
-      <uri>model://sphere</uri>
+      <uri>model://human_ellipse</uri>
       <name>sphere5</name>
       <pose>4 -1.1 0 0 0 0</pose>
       <plugin name="Read_obstacle_state_S1" filename="libRead_obstacle_state.so"/>

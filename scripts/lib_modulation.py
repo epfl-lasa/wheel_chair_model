@@ -227,7 +227,6 @@ def obs_avoidance_interpolation(x, xd, obs, attractor=[], vel_lim=0, distLim=0.5
                 b_h = -b/(2*a)
 
                 k = np.array([b_h+D, b_h-D])
-                print('k', k)
                 if np.sum(k<=1)==2:
                     if np.sum(k>=0)==2:
                         k = np.max(k)
@@ -235,13 +234,11 @@ def obs_avoidance_interpolation(x, xd, obs, attractor=[], vel_lim=0, distLim=0.5
                         k = k[k>=0]
                 else:
                     k = k[k<=1]
-                print('k', k)
                 xd = xd_obs + k*xd
         else:  # no vel limit or velocity unde rlimit
             xd = xd + xd_obs # transforming back the velocity into the global coordinate system
     else:
         xd = xd + xd_obs # transforming back the velocity into the global coordinate system
-    print('xdddddd', xd)
     return xd
 
 

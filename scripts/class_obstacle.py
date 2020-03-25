@@ -19,12 +19,7 @@ class Obstacle:
         self.name = name
         self.frame_id = frame_id
 
-        #self.xd = xd
-        #self.w = w
-
         self.d = len(x0) #Dimension of space
-        # print('x0', x0)
-        # self.d = 3
         
         self.R = []
         self.compute_R() # Compute Rotation Matrix

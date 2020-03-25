@@ -23,12 +23,14 @@
     <model name="Wheelchair_Salsa">
       <include>
         <uri>model://wheelchair</uri>
+        <pose>-2.0 0.0 0.1 0 0 0</pose>
       </include>
     </model>
     <include>
-      <uri>model://sphere</uri>
+      <uri>model://human_ellipse</uri>
+      <!-- <name>human_ellipse</name> -->
       <name>sphere1</name>
-      <pose>3.0 0.0 0 0 0 0</pose>
+      <!-- <pose>3.0 0.0 0 0 0 0</pose> -->
       <plugin name="Read_obstacle_state_S1" filename="libRead_obstacle_state.so"/>
     </include>
   </world>

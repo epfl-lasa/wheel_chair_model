@@ -10,6 +10,9 @@
 
 
 #include <gazebo/gazebo.hh>
+#include <ignition/math.hh>
+// #include <math/gzmath.hh>
+// #include <gazebo/MathTypes.hh>
 #include "eigen3/Eigen/Dense"
 #include <gazebo/physics/physics.hh>
 #include <gazebo/transport/transport.hh>
@@ -86,7 +89,9 @@ private:
 	VectorXd 					Desired_Position_2D;
 	VectorXd 					Desired_Velocity_2D;
 	VectorXd 					Desired_torque_2D;
-	math::Pose					Wheelchair_pos;
+  // gazebo::math::Pose					Wheelchair_pos;
+  ignition::math::Pose3<double>				Wheelchair_pos;
+  
 
 	physics::ModelPtr			model; /// \brief Pointer to the model.
 	physics::JointPtr 			joint; /// \brief Pointer to the joint.
