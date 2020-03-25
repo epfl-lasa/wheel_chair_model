@@ -1,0 +1,42 @@
+<?xml version='1.0'?>
+<sdf version="1.4">
+<model name="human_ellipse">
+  <pose>0.0 0 0.9 0 0 0</pose>
+  <static>true</static>
+    <link name="link">
+      <inertial>
+        <mass>1000.0</mass>
+        <inertia> <!-- Look up -->
+          <!-- http://gazebosim.org/tutorials?tut=inertia&cat=build_robot -->
+          <ixx>83</ixx>       <!-- for a box: ixx = 0.083 * mass * (y*y + z*z) -->
+          <ixy>0.0</ixy>         <!-- for a box: ixy = 0 -->
+          <ixz>0.0</ixz>         <!-- for a box: ixz = 0 -->
+          <iyy>83</iyy>       <!-- for a box: iyy = 0.083 * mass * (x*x + z*z) -->
+          <iyz>0.0</iyz>         <!-- for a box: iyz = 0 -->
+          <izz>83</izz>       <!-- for a box: izz = 0.083 * mass * (x*x + y*y) -->
+        </inertia>
+      </inertial>
+      <collision name="collision">
+          <geometry>
+            <cylinder>
+            <length>3.6</length>
+            <radius>0.3</radius>
+          </cylinder>
+          <sphere>
+            <radius>.4</radius>
+          </sphere>
+          <!-- <cylinder length="1.80" radius="0.6"/> -->
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <length>3.6</length>
+            <radius>0.4</radius>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>
+ 
