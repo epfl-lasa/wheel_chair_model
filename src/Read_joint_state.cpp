@@ -115,18 +115,22 @@ void gazebo::Read_joint_state::Load(physics::ModelPtr _model,
 		ros::init(argc, argv, "Read_joint_state",
 				ros::init_options::NoSigintHandler);
 	}
+	
 	rosNode = new ros::NodeHandle("Read_joint_state");
-	pubJoint_state = rosNode->advertise<sensor_msgs::JointState>(
-			"quickie_wheel_states", 1000);
-	pubWheelchair_state = rosNode->advertise<geometry_msgs::Pose2D>(
-			"quickie_state", 1000);
+	pubJoint_state = rosNode->advertise<sensor_msgs::JointState>("quickie_wheel_states", 1000);
+	  
+	pubWheelchair_state = rosNode->advertise<geometry_msgs::Pose2D>("quickie_state", 1000);
+			
 	sub_desired_state_2D = rosNode->subscribe("/quickie_wheel_Desired_state_2D",
 			3, &Read_joint_state::chatterCallback_desired_state_2D, this);
+	
 	sub_desired_state_complete = rosNode->subscribe(
 			"/quickie_wheel_Desired_state_complete", 3,
 			&Read_joint_state::chatterCallback_desired_state_complete, this);
+	
 	sub_desired_tele_state = rosNode->subscribe("/cmd_vel", 3,
 			&Read_joint_state::chatterCallback_desired_tele_state, this);
+	
 	sub_control_level = rosNode->subscribe("/quickie_wheel_Control_level", 3,
 			&Read_joint_state::chatterCallback_control_level, this);
 
@@ -157,6 +161,7 @@ void gazebo::Read_joint_state::Load(physics::ModelPtr _model,
 	Desired_Velocity_2D.resize(2);
 	Desired_torque_2D.resize(2);
 	Desired_Tele_State.resize(2);
+	
 	mWheelchair.theta = 0;
 	mWheelchair.x = 0;
 	mWheelchair.y = 0;
@@ -195,6 +200,7 @@ void gazebo::Read_joint_state::Load(physics::ModelPtr _model,
 	OnUpdateThread = std::thread(std::bind(&Read_joint_state::OnUpdate, this));
 }
 
+
 void gazebo::Read_joint_state::OnUpdate()
 {
 	ros::Rate r(100); // 100 hz
@@ -203,8 +209,8 @@ void gazebo::Read_joint_state::OnUpdate()
 	{
 		for (int i = 0; i < number_of_joints; i++)
 		{
-                  // Current_joint_position(i) = model->GetJoints()[i]->GetAngle(0).Radian();
-                  Current_joint_position(i) = model->GetJoints()[i]->Position(0);
+		    // Current_joint_position(i) = model->GetJoints()[i]->GetAngle(0).Radian();
+		    Current_joint_position(i) = model->GetJoints()[i]->Position(0);
 					
 			Current_joint_velocity(i) = model->GetJoints()[i]->GetVelocity(0);
 			mJoint_state.position[i] = Current_joint_position(i);
@@ -214,71 +220,75 @@ void gazebo::Read_joint_state::OnUpdate()
 		// Wheelchair_pos = model->GetWorldPose();
 		// mWheelchair.x = Wheelchair_pos.pos.x;
 		// mWheelchair.y = Wheelchair_pos.pos.y;
-                Wheelchair_pos = model->WorldPose();
-                mWheelchair.x = Wheelchair_pos.Pos().X();
-                mWheelchair.y = Wheelchair_pos.Pos().Y();
+		Wheelchair_pos = model->WorldPose();
+		mWheelchair.x = Wheelchair_pos.Pos().X();
+		mWheelchair.y = Wheelchair_pos.Pos().Y();
 		// mWheelchair.theta = Wheelchair_pos.rot.GetAsEuler().z;
-                mWheelchair.theta = Wheelchair_pos.Rot().Euler()[2];
+		mWheelchair.theta = Wheelchair_pos.Rot().Euler()[2];
+
+		// Adapt to setup (QOLO)
+		mWheelchair.x = mWheelchair.x + 0.300;
+		mWheelchair.y = mWheelchair.y - 0.283;
+		mWheelchair.theta = mWheelchair.theta + 3.14159;
+		
 		pubWheelchair_state.publish(mWheelchair);
 		switch (Control_Level)
 		{
 		case CONTROL_POS_2D:
 			model->GetJoints()[0]->SetPosition(0, Desired_Position_2D(0));
 			model->GetJoints()[1]->SetPosition(0, -Desired_Position_2D(0));
-			model->GetJoints()[2]->SetPosition(0, -Desired_Position_2D(1));
+			
+			// model->GetJoints()[2]->SetPosition(0, -Desired_Position_2D(1));
 			//model->GetJoints()[3]->SetPosition(0, 0);
-			model->GetJoints()[4]->SetPosition(0, -Desired_Position_2D(1));
+			// model->GetJoints()[4]->SetPosition(0, -Desired_Position_2D(1));
 			//model->GetJoints()[5]->SetPosition(0, 0);
 			//model->GetJoints()[6]->SetPosition(0, 0);
 			//model->GetJoints()[7]->SetPosition(0, 0);
-			model->GetJoints()[8]->SetPosition(0, Desired_Position_2D(1));
+			
+			// model->GetJoints()[8]->SetPosition(0, Desired_Position_2D(1));
 			model->GetJoints()[9]->SetPosition(0, Desired_Position_2D(1));
+			
 			break;
+			
 		case CONTROL_VEL_2D:
 			break;
+			
 		case CONTROL_TORQUE_2D:
 			model->GetJoints()[0]->SetForce(0, Desired_torque_2D(0)); // The big wheels should have the same torque
 			model->GetJoints()[1]->SetForce(0, -Desired_torque_2D(0)); // The big wheels should have the same torque
-			model->GetJoints()[2]->SetForce(0, -Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
+			
+			model->GetJoints()[2]->SetForce(0, 0); // The front and the rear wheel do not accept a torque, they are just free wheels
 			model->GetJoints()[3]->SetForce(0, 0); // The front and the rear wheel do not accept a torque, they are just free wheels
-			model->GetJoints()[4]->SetForce(0, -Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
-			model->GetJoints()[5]->SetForce(0, 0); // The front and the rear wheel do not accept a torque, they are just free wheels
-			model->GetJoints()[6]->SetForce(0, 0); // The front and the rear wheel do not accept a torque, they are just free wheels
-			model->GetJoints()[7]->SetForce(0, 0); // The front and the rear wheel do not accept a torque, they are just free wheels
-			model->GetJoints()[8]->SetForce(0, Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
-			model->GetJoints()[9]->SetForce(0, Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
+			
+			model->GetJoints()[4]->SetForce(0, Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
+			model->GetJoints()[5]->SetForce(0, Desired_torque_2D(1)); // The pin of the front and the rear wheel can accept a torque
 			break;
+			
 		case CONTROL_POS_COM:
 			break;
+			
 		case CONTROL_VEL_COM:
 			break;
+			
 		case CONTROL_TORQUE_COM:
 			for (int i = 0; i < number_of_joints; i++)
 			{
 				model->GetJoints()[i]->SetForce(0, Desired_torque_complete(i));
 			}
 			break;
+			
 		case CONTROL_TELE:
-				model->GetJoints()[0]->SetVelocity(0,
-						Desired_Tele_State(0) + Desired_Tele_State(1));
-			model->GetJoints()[1]->SetVelocity(0,
-					-Desired_Tele_State(0) + Desired_Tele_State(1));
+			// cout << "joint 0" << Desired_Tele_State(0) + Desired_Tele_State(1) << "\n";
+			// cout << "joint 1" << -Desired_Tele_State(0) + Desired_Tele_State(1) << "\n";
+			
+		    model->GetJoints()[0]->SetVelocity(0, Desired_Tele_State(0) + Desired_Tele_State(1));
+			model->GetJoints()[1]->SetVelocity(0, -Desired_Tele_State(0) + Desired_Tele_State(1));
+			
 			model->GetJoints()[2]->SetPosition(0, 0);
-//			model->GetJoints()[3]->SetVelocity(0, Desired_Tele_State(0));
+			model->GetJoints()[3]->SetPosition(0, 0);
+			
 			model->GetJoints()[4]->SetPosition(0, 0);
-			//		model->GetJoints()[5]->SetVelocity(0, -Desired_Tele_State(0));
-			//	model->GetJoints()[6]->SetVelocity(0, Desired_Tele_State(0));
-			//	model->GetJoints()[7]->SetVelocity(0, -Desired_Tele_State(0));
-			model->GetJoints()[8]->SetPosition(0, 0);
-			model->GetJoints()[9]->SetPosition(0, 0);
-			/*			model->GetJoints()[2]->SetPosition(0, -Desired_Tele_State(1));
-			 model->GetJoints()[3]->SetVelocity(0, Desired_Tele_State(0));
-			 model->GetJoints()[4]->SetPosition(0, -Desired_Tele_State(1));
-			 model->GetJoints()[5]->SetVelocity(0, -Desired_Tele_State(0));
-			 model->GetJoints()[6]->SetVelocity(0, Desired_Tele_State(0));
-			 model->GetJoints()[7]->SetVelocity(0, -Desired_Tele_State(0));
-			 model->GetJoints()[8]->SetPosition(0, Desired_Tele_State(1));
-			 model->GetJoints()[9]->SetPosition(0, Desired_Tele_State(1));*/
+			model->GetJoints()[5]->SetPosition(0, 0);
 			break;
 		}
 		r.sleep();

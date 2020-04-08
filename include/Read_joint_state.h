@@ -103,6 +103,5 @@ GZ_REGISTER_MODEL_PLUGIN(Read_joint_state)
 }
 
 
-
-
 #endif /* WHEEL_CHAIR_MODEL_INCLUDE_READ_JOINT_STATE_H_ */
+

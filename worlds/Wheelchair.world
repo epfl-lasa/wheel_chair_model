@@ -20,7 +20,7 @@
     <include>
       <uri>model://sun</uri>
     </include>
-    <model name="Wheelchair_Salsa">
+    <model name="Wheelchair_QOLO">
       <include>
         <uri>model://wheelchair</uri>
       </include>

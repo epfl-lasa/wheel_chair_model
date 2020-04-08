@@ -79,11 +79,11 @@ class VelocityController():
         self.wheelRad = 0.155  # [m]
         self.robo_dim = np.array([0.66, 0.78])  # [m]
         self.obs_read = 0.5 # [m]
-        self.obs_dim = [0.5,0.5] # [m]
+        self.obs_dim = [0.5, 0.5] # [m]
         
         # Human motion limits
         # self.velHuman_min = 2.0/3.6
-        self.velHuman_max =3.0/3.6
+        self.velHuman_max = 3.0/3.6
         self.velHuman_lim = 5.0/3.6 # [m/s]
         self.distLim_origin = 4 # [m]
 
@@ -195,6 +195,11 @@ class VelocityController():
 
             vel.angular.z = dPhi*1.0
 
+            vel.linear.x = vel.linear.x * 0.01
+
+            # print('curent position: [{}, {}]  --- orintation: {}'.format(round(self.robo_pos.x, 2), np.round(self.robo_pos.y, 2), np.round(self.robo_pos.theta, 2)))
+            # print('linear: {}  --- angular: {}'.format(np.round(vel.linear.x, 2), np.round(vel.angular.z,2)))
+
             self.pub_vel.publish(vel)
 
             # rospy.spinOnce()
@@ -244,6 +249,12 @@ class VelocityController():
 
     def callback_pos(self, msg): # Callback to get robots posisiton
         self.robo_pos = msg
+        
+        # Robot is decenterd due to model
+        # self.robo_pos.x += 
+        # self.robo_pos.y -=
+        # self.robo_pos.theta += pi
+        
         self.awaitingPos = False
 
     # def callback_obs(self, msg, oo=0): # Callback to get robots posisiton
