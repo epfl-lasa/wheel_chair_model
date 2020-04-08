@@ -1,0 +1,585 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="wheelchair">
+    <!-- <pose>0 0 10 0 0 0</pose> -->
+    <pose>0 0 0.1 0 0 0</pose>
+    <static>false</static>
+    <link name="Mainbody">
+      <!-- <pose>0 0 0 1.570796 0 0</pose> -->
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+         <mass>1</mass>
+        <inertia> <!-- inertias are tricky to compute -->
+          <!-- http://gazebosim.org/tutorials?tut=inertia&cat=build_robot -->
+          <ixx>0.0</ixx>       <!-- for a box: ixx = 0.083 * mass * (y*y + z*z) -->
+          <ixy>0.0</ixy>         <!-- for a box: ixy = 0 -->
+          <ixz>0.0</ixz>         <!-- for a box: ixz = 0 -->
+          <iyy>0.0</iyy>       <!-- for a box: iyy = 0.083 * mass * (x*x + z*z) -->
+          <iyz>0.0</iyz>         <!-- for a box: iyz = 0 -->
+          <izz>0.0</izz>       <!-- for a box: izz = 0.083 * mass * (x*x + y*y) -->
+         <!--  <ixx>12.10</ixx> -->       <!-- for a box: ixx = 0.083 * mass * (y*y + z*z) -->
+         <!--  <ixy>0.03</ixy> -->         <!-- for a box: ixy = 0 -->
+          <!-- <ixz>2.70</ixz>     -->     <!-- for a box: ixz = 0 -->
+          <!-- <iyy>13.0</iyy>      -->  <!-- for a box: iyy = 0.083 * mass * (x*x + z*z) -->
+          <!-- <iyz>0.10</iyz>       -->   <!-- for a box: iyz = 0 -->
+         <!--  <izz>9.0</izz>      -->  <!-- for a box: izz = 0.083 * mass * (x*x + y*y) --> 
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <!-- <pose>0 0 1 1.5707963267948966 0 0</pose> -->
+        <geometry>
+          <mesh>
+            <uri>model://wheelchair/meshes/Wheelchair.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0</mu>
+              <mu2>0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <!-- <pose>0 0 1 1.5707963267948966 0 0</pose> -->
+        <geometry>
+          <mesh>
+            <uri>model://wheelchair/meshes/Wheelchair.stl</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <!-- Add a ray sensor, and give it a name -->
+      <sensor type="ray" name="lidar_front">
+        <!-- <pose>0.4 0 0.2 1.5707 0 0</pose> -->
+        <pose>0.4 0 0.2 0 0 0</pose>
+        <visualize>true</visualize>
+        <update_rate>30</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>32</samples>
+              <resolution>1</resolution>
+              <min_angle>-0.53529248</min_angle>
+              <max_angle>0.18622663</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.05</min>
+            <max>70</max>
+            <resolution>0.02</resolution>
+          </range>
+        </ray>        
+      </sensor>
+      <sensor type="ray" name="lidar_back">
+        <!-- <pose>-0.4 0 0.2 1.5707 0 3.1415</pose> -->
+        <pose>-0.4 0 0.2 0 0 3.1415</pose>
+        <visualize>true</visualize>
+        <update_rate>30</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>32</samples>
+              <resolution>1</resolution>
+              <min_angle>-0.53529248</min_angle>
+              <max_angle>0.18622663</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.05</min>
+            <max>70</max>
+            <resolution>0.02</resolution>
+          </range>
+        </ray>        
+      </sensor>
+    </link>
+    <link name="left_main_wheel">
+      <pose>-0.091 -0.33 0.109 0 1.57 1.57</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.155</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1000000.0</mu>
+              <mu2>1000000.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.155</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+    <joint type="revolute" name="left_wheel_main_hinge">
+      <pose>0 0 -0.0 0 0 0</pose>
+      <child>left_main_wheel</child>
+      <parent>Mainbody</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+      <sensor name="force_torque_left_wheel_main_hinge" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
+    </joint>
+    <link name="right_main_wheel">
+      <pose>-0.091 0.33 0.109 0 1.57 1.57</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.155</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1000000.0</mu>
+              <mu2>1000000.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.155</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+    <joint type="revolute" name="right_wheel_main_hinge">
+      <pose>0 0 -0.0 0 0 0</pose>
+      <child>right_main_wheel</child>
+      <parent>Mainbody</parent>
+      <axis>
+        <xyz>0 0 -1</xyz>
+      </axis>
+      <sensor name="force_torque_right_wheel_main_hinge" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
+    </joint>
+
+    <link name="left_front_pin">
+      <pose>0.241 -0.33 0.149 0 3.14 1.57</pose>
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <scale>0.01 0.01 0.01</scale>
+            <uri>model://wheelchair/meshes/Hinge.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0</mu>
+              <mu2>0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <scale>0.01 0.01 0.01</scale>
+            <uri>model://wheelchair/meshes/Hinge.stl</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link> 
+
+    <joint type="revolute" name="left_wheel_front_hinge_pin">
+      <pose>0 0 0 0 0 0</pose>
+      <child>left_front_pin</child>
+      <parent>Mainbody</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+      <sensor name="force_torque_left_wheel_front_hinge_pin" type="force_torque">
+<!--         <plugin name="Read_torque_force_test" filename="libRead_torque_force_test.so"/> --> <!-- Activate this line once you want to read the sensor directly -->
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
+    </joint>
+
+    <link name="left_front_wheel">
+      <pose>0.245 -0.33 0.039 0 1.57 1.57</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.085</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.0</mu>
+              <mu2>0.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.085</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+    <joint type="revolute" name="left_wheel_front_hinge">
+      <pose>0 0 0.0 0 0 0</pose>
+      <child>left_front_wheel</child>
+      <parent>left_front_pin</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+      <sensor name="force_torque_left_wheel_front_hinge" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
+    </joint>
+
+
+    <link name="right_front_pin">
+      <pose>0.241 0.33 0.149 0 3.14 1.57</pose>
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <scale>0.01 0.01 0.01</scale>
+            <uri>model://wheelchair/meshes/Hinge.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0</mu>
+              <mu2>0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <scale>0.01 0.01 0.01</scale>
+            <uri>model://wheelchair/meshes/Hinge.stl</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link> 
+
+    <joint type="revolute" name="right_wheel_front_hinge_pin">
+      <pose>0 0 0 0 0 0</pose>
+      <child>right_front_pin</child>
+      <parent>Mainbody</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+      <sensor name="force_torque_right_wheel_front_hinge_pin" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
+    </joint>
+
+
+    <link name="right_front_wheel">
+      <pose>0.245 0.33 0.039 0 1.57 1.57</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.085</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.0</mu>
+              <mu2>0.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.085</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+    <joint type="revolute" name="right_wheel_front_hinge">
+      <pose>0 0 0 0 0 0</pose>
+      <child>right_front_wheel</child>
+      <parent>right_front_pin</parent>
+      <axis>
+        <xyz>0 0 -1</xyz>
+      </axis>
+      <sensor name="force_torque_right_wheel_front_hinge" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
+    </joint>
+
+
+    <link name="left_rear_wheel">
+      <pose>-0.548 -0.33 0.039 0 1.57 1.57</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.085</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.0</mu>
+              <mu2>0.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.085</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+    <joint type="revolute" name="left_wheel_rear_hinge">
+      <pose>0 0 0 0 0 0</pose>
+      <child>left_rear_wheel</child>
+      <parent>left_rear_pin</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+      <sensor name="force_torque_left_wheel_rear_hinge" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
+    </joint>
+
+    <link name="right_rear_wheel">
+      <pose>-0.548 0.33 0.039 0 1.57 1.57</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.085</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.0</mu>
+              <mu2>0.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.085</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+    <joint type="revolute" name="right_wheel_rear_hinge">
+      <pose>0 0 0 0 0 0</pose>
+      <child>right_rear_wheel</child>
+      <parent>right_rear_pin</parent>
+      <axis>
+        <xyz>0 0 -1</xyz>
+      </axis>
+      <sensor name="force_torque_right_wheel_rear_hinge" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
+    </joint>
+
+    <link name="right_rear_pin">
+      <pose>-0.54 0.33 0.15 0 3.14 1.57</pose>
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <scale>0.01 0.01 0.01</scale>
+            <uri>model://wheelchair/meshes/Hinge.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0</mu>
+              <mu2>0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <scale>0.01 0.01 0.01</scale>
+            <uri>model://wheelchair/meshes/Hinge.stl</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link> 
+
+
+    <joint type="revolute" name="right_wheel_rear_hinge_pin">
+      <pose>0 0 0 0 0 0</pose>
+      <child>right_rear_pin</child>
+      <parent>Mainbody</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+      <sensor name="force_torque_right_wheel_rear_hinge_pin" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
+    </joint>
+
+
+    <link name="left_rear_pin">
+      <pose>-0.54 -0.33 0.15 0 3.14 1.57</pose>
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <scale>0.01 0.01 0.01</scale>
+            <uri>model://wheelchair/meshes/Hinge.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0</mu>
+              <mu2>0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <scale>0.01 0.01 0.01</scale>
+            <uri>model://wheelchair/meshes/Hinge.stl</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link> 
+    <joint type="revolute" name="left_wheel_rear_hinge_pin">
+      <pose>0 0 0 0 0 0</pose>
+      <child>left_rear_pin</child>
+      <parent>Mainbody</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+      <sensor name="force_torque_left_wheel_rear_hinge_pin" type="force_torque">
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
+    </joint>
+    <!-- <include>
+      <uri>model://hokuyo</uri>
+      <pose>-0.35 0 1 0 0 0</pose>
+    </include>
+    <joint name="hokuyo_joint" type="fixed">
+      <child>hokuyo::link</child>
+      <parent>Mainbody</parent>
+    </joint> -->
+     <plugin name="Read_joint_state" filename="libRead_joint_state.so"/>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_left_wheel_main_hinge</topicName>
+        <jointName>wheelchair::left_wheel_main_hinge</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_right_wheel_main_hinge</topicName>
+        <jointName>wheelchair::right_wheel_main_hinge</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_left_wheel_front_hinge_pin</topicName>
+        <jointName>wheelchair::left_wheel_front_hinge_pin</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_left_wheel_front_hinge</topicName>
+        <jointName>wheelchair::left_wheel_front_hinge</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_right_wheel_front_hinge_pin</topicName>
+        <jointName>wheelchair::right_wheel_front_hinge_pin</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_right_wheel_front_hinge</topicName>
+        <jointName>wheelchair::right_wheel_front_hinge</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_left_wheel_rear_hinge</topicName>
+        <jointName>wheelchair::left_wheel_rear_hinge</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_right_wheel_rear_hinge</topicName>
+        <jointName>wheelchair::right_wheel_rear_hinge</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_right_wheel_rear_hinge_pin</topicName>
+        <jointName>wheelchair::right_wheel_rear_hinge_pin</jointName>
+      </plugin>
+      <plugin name="Read_torque_force" filename="libRead_torque_force.so">
+        <updateRate>100.0</updateRate>
+        <topicName>force_torque_left_wheel_rear_hinge_pin</topicName>
+        <jointName>wheelchair::left_wheel_rear_hinge_pin</jointName>
+      </plugin>
+  </model>
+</sdf>
